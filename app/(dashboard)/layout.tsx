@@ -1,12 +1,17 @@
+ 
 import React from 'react'
+import Aside from './_components/Aside'
 
 type Props = {children:React.ReactNode}
 
 const layout = ({children}: Props) => {
   return (
-    <div>
-        layout
-        {children}
+    <div className='flex h-full'>
+   <Aside />
+      <main className='flex-1 p-[35px]'>
+      {children}
+      </main>
+      
     </div>
   )
 }
