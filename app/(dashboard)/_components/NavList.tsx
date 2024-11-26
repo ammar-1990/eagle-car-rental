@@ -1,61 +1,68 @@
-'use client'
-import { cn } from '@/lib/utils'
-import { Bell, Bolt, BookCheck, Car, LayoutDashboard } from 'lucide-react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import React from 'react'
+"use client";
+import { cn } from "@/lib/utils";
+import { Bell, Bolt, BookCheck, Car, LayoutDashboard } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const NavList = (props: Props) => {
-const pathname = usePathname()
+  const pathname = usePathname();
 
-const iconsClassName = 'w-[24px] h-[24px]'
-    const navList = [
-        {
-            label:'Dashboard',
-            href:'/',
-            Icon:<LayoutDashboard className={iconsClassName} />,
-            isActive:pathname === '/'
-        },
-        {
-            label:'Bookings',
-            href:'/bookings',
-            Icon:<BookCheck className={iconsClassName} />,
-            isActive:pathname.startsWith('/bookings') 
-        },
-        {
-            label:'Cars',
-            href:'/cars',
-            Icon:<Car className={iconsClassName} />,
-            isActive:pathname.startsWith('/cars')
-        },
-        {
-            label:'Notifications',
-            href:'/notifications',
-            Icon:<Bell className={iconsClassName} />,
-            isActive:pathname.startsWith('/notifications')
-        },
-        {
-            label:'Settings',
-            href:'/settings',
-            Icon:<Bolt className={iconsClassName} />,
-            isActive:pathname.startsWith('/settings')
-        },
-    ]
+  const iconsClassName = "w-[24px] h-[24px]";
+  const navList = [
+    {
+      label: "Dashboard",
+      href: "/",
+      Icon: <LayoutDashboard className={iconsClassName} />,
+      isActive: pathname === "/",
+    },
+    {
+      label: "Bookings",
+      href: "/bookings",
+      Icon: <BookCheck className={iconsClassName} />,
+      isActive: pathname.startsWith("/bookings"),
+    },
+    {
+      label: "Cars",
+      href: "/cars",
+      Icon: <Car className={iconsClassName} />,
+      isActive: pathname.startsWith("/cars"),
+    },
+    {
+      label: "Notifications",
+      href: "/notifications",
+      Icon: <Bell className={iconsClassName} />,
+      isActive: pathname.startsWith("/notifications"),
+    },
+    {
+      label: "Settings",
+      href: "/settings",
+      Icon: <Bolt className={iconsClassName} />,
+      isActive: pathname.startsWith("/settings"),
+    },
+  ];
   return (
-    <nav className='flex flex-col'>
-        {navList.map(({Icon,href,isActive,label})=>(
-            <Link key={label} href={href}>
-             <div  className={cn('flex gap-[12px] py-[12px] px-[16px] text-white items-center rounded-[4px] relative',isActive && 'bg-[#006AFF]')}>
+    <nav className="flex flex-col gap-[16px]">
+      {navList.map(({ Icon, href, isActive, label }) => (
+        <Link key={label} href={href}>
+          <div
+            className={cn(
+              "flex gap-[12px] py-[12px] px-[16px] text-white items-center rounded-[4px] relative transition ",
+              isActive && "bg-[#006AFF]",!isActive && 'hover:bg-[#006aff27]'
+            )}
+          >
             {Icon}
             <span>{label}</span>
-{isActive && <div className='bg-white rounded-[4px] w-[6px] h-[36px] left-0 absolute'/>}
-        </div>
-            </Link>
-       ))}
+            {isActive && (
+              <div className="bg-white rounded-[4px] w-[6px] h-[36px] left-0 absolute" />
+            )}
+          </div>
+        </Link>
+      ))}
     </nav>
-  )
-}
+  );
+};
 
-export default NavList
+export default NavList;
