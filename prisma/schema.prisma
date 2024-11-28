@@ -4,7 +4,6 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,18 +14,99 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-
-
+model CarType {
+  id        String   @id @default(uuid())
+  title     String
+  cars      Car[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 
 model Car {
-id String @id @default(uuid())
+  id                 String       @id @default(uuid())
+  slug               String       @unique
+  //car info
+  carTypeId          String
+  carType            CarType      @relation(fields: [carTypeId], references: [id])
+  subTitle           String
+  locationId         String
+  location           Location     @relation(fields: [locationId], references: [id])
+  seats              Int
+  transmission       Transmission
+  fuel               Fuel
+  //apperance
+  image              String
+  //pricing
+  pricing            Float[]
+  bookings           Booking[]
+  //rental details
+  kmIncluded         Float
+  deliveryFee        Float
+  minimumRentalHours Int
+  deposit            Float
 
-createdAt DateTime @default(now())
-updatedAt DateTime @updatedAt
+  disabled  Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
-        
 
+model Booking {
+  id            String @id @default(uuid())
+  //driver detais
+  email         String
+  firstName     String
+  middleName    String
+  lastName      String
+  contactNumber String
+  //billing address
+  billingFirstName String
+  billingMiddleName String
+  billingLastName String
+  billingContactNumber String
+  address String
+  City String
+  State String
+  Zipcode String
+  isBusinessBooking Boolean
+  //required documents
+  license String
+  insurance String
+  returnFlight String
+  paymentMethod PaymentMethod @default(CARD)
 
+  terms Boolean
 
+  carId String
+  car   Car    @relation(fields: [carId], references: [id])
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 
+model Location {
+  id        String   @id @default(uuid())
+  title     String
+  cars      Car[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+//enums
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+  CVT
+  TIPTRONIC
+}
+
+enum Fuel {
+  GASOLINE
+  DIESEL
+  ELECTRIC
+  HYBRID
+}
+
+enum PaymentMethod {
+  CARD
+}

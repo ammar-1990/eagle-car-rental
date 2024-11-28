@@ -41,7 +41,7 @@ export const useLogin = () => {
             if (res?.error) {
               toast.error("Invalid Credentials");
             } else {
-              router.push("/");
+              router.replace("/");
             }
             console.log(res);
           } catch (error) {

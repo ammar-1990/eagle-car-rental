@@ -24,7 +24,7 @@ const InputField = <T extends FieldValues>({form,label,placeholder,type = 'text'
     name={name}
     render={({ field }) => (
       <FormItem>
-        <FormLabel className={cn(labelStyles)}>{label}</FormLabel>
+        <FormLabel className={cn('text-[#606060]',labelStyles)}>{label}</FormLabel>
         <FormControl>
           <Input className={cn(inputStyles)} type={type} placeholder={placeholder} {...field} />
         </FormControl>

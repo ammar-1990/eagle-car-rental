@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import NavList from './NavList'
+import { SignoutButton } from './SignoutButton'
 
 type Props = {}
 
@@ -14,7 +15,10 @@ const Aside = (props: Props) => {
     <Image src={'/Logo.png'} className='object-contain' fill  alt='Logo' />
     </div>
     </Link>
+    {/* nav list */}
     <NavList/>
+    {/* signout button */}
+    <SignoutButton />
     </aside>
   )
 }
