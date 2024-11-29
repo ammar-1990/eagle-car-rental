@@ -1,8 +1,8 @@
 import { wait } from "@/lib/utils";
 import React, { Suspense } from "react";
 import Heading from "../_components/Heading";
-import CategoriesFeed from "./_components/CategoriesFeed";
-import BlogsFeed from "./_components/BlogsFeed";
+import CategoriesFeed from "./[slug]/_components/CategoriesFeed";
+import BlogsFeed from "./[slug]/_components/BlogsFeed";
 import { Skeleton } from "@/components/ui/skeleton";
 import ModalButton from "../_components/ModalButton";
 import LinkButton from "../_components/LinkButton";

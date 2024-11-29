@@ -12,7 +12,7 @@ const Aside = (props: Props) => {
     {/* logo */}
     <Link href={'/'}>
     <div className='relative w-full aspect-video '>
-    <Image src={'/Logo.png'} className='object-contain' fill  alt='Logo' />
+    <Image priority src={'/Logo.png'} className='object-contain' fill  alt='Logo' />
     </div>
     </Link>
     {/* nav list */}

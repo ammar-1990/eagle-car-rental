@@ -5,16 +5,17 @@ import prisma from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 
 type Props = {
-    params:{slug:string}
+    params:Promise<{slug:string}>
 }
 
 const CarPage = async({params}: Props) => {
+  const {slug} = await params
     const car = await prisma.car.findUnique({
         where:{
-            slug:params.slug
+            slug:slug
         }
     })
-    if(!car && params.slug !=='new') return notFound()
+    if(!car && slug !=='new') return notFound()
     const title = car ? `Update ${car.subTitle}` : 'Create New Car'
   return (
     <div>

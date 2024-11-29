@@ -29,6 +29,7 @@ const LognForm = (props: Props) => {
       <div className="px-12 mb-8 bg-site-primary rounded-md">
         <div className="relative w-[200px] mx-auto aspect-video">
           <Image
+          priority
             src={"/Logo.png"}
             className="object-contain"
             fill
