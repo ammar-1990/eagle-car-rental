@@ -3,9 +3,9 @@ import Heading from "./_components/Heading";
 
  
 
-export default async function Home() {
+export default async function HoMainPageme() {
 
-  await wait()
+ 
   return (
  <div>
   <Heading title="Dashboard" />

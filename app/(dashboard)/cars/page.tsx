@@ -6,8 +6,8 @@ import { wait } from '@/lib/utils'
 
 type Props = {}
 
-const page = async(props: Props) => {
-  await wait()
+const CarsPage = async(props: Props) => {
+ 
   return (
     <div>
        <Heading title="Cars" />
@@ -15,4 +15,4 @@ const page = async(props: Props) => {
   )
 }
 
-export default page
+export default CarsPage

@@ -5,10 +5,10 @@ import LoadingPage from './_components/LoadingPage'
 
 type Props = {}
 
-const loading = (props: Props) => {
+const DashboardLoading = (props: Props) => {
   return (
     <LoadingPage />
   )
 }
 
-export default loading
+export default DashboardLoading

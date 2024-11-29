@@ -4,8 +4,8 @@ import { wait } from '@/lib/utils'
 
 type Props = {}
 
-const page =async (props: Props) => {
-  await wait()
+const SettingsPage =async (props: Props) => {
+  
   return (
     <div>
        <Heading title="Settings" />
@@ -13,4 +13,4 @@ const page =async (props: Props) => {
   )
 }
 
-export default page
+export default SettingsPage

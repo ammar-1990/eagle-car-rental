@@ -24,6 +24,7 @@ const LoadingButton = ({
 }: Props) => {
   return (
     <Button
+    variant={'site'}
       onClick={async () =>clickHandler ?  await clickHandler() : undefined}
       className={cn("", className)}
       {...props}

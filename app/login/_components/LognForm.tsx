@@ -55,7 +55,7 @@ const LognForm = (props: Props) => {
             type="password"
           />
          <LoadingButton 
-         className="bg-site-primary hover:bg-site-primary/85 w-full"
+         className=" w-full"
          title="Login"
          type="submit"
          loading={pending} 

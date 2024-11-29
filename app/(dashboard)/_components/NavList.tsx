@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { Bell, Bolt, BookCheck, Car, LayoutDashboard } from "lucide-react";
+import { Bell, Bolt, BookCheck, BookOpenText, Car, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -35,6 +35,12 @@ const NavList = (props: Props) => {
       href: "/notifications",
       Icon: <Bell className={iconsClassName} />,
       isActive: pathname.startsWith("/notifications"),
+    },
+    {
+      label: "Blogs",
+      href: "/blogs",
+      Icon: <BookOpenText className={iconsClassName} />,
+      isActive: pathname.startsWith("/blogs"),
     },
     {
       label: "Settings",

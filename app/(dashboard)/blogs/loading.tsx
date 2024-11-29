@@ -1,13 +1,12 @@
 import React from 'react'
 import LoadingPage from '../_components/LoadingPage'
- 
 
 type Props = {}
 
-const SettingsLoading = (props: Props) => {
+const BlogsLoading = (props: Props) => {
   return (
-    <LoadingPage />
+<LoadingPage/>
   )
 }
 
-export default SettingsLoading
+export default BlogsLoading

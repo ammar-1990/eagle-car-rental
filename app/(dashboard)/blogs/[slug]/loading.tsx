@@ -3,10 +3,10 @@ import LoadingPage from '../../_components/LoadingPage'
 
 type Props = {}
 
-const CarLoading = (props: Props) => {
+const BlogLoading = (props: Props) => {
   return (
-    <LoadingPage />
+   <LoadingPage/>
   )
 }
 
-export default CarLoading
+export default BlogLoading
