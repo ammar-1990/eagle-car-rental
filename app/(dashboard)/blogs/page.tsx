@@ -1,11 +1,12 @@
 import { wait } from "@/lib/utils";
 import React, { Suspense } from "react";
 import Heading from "../_components/Heading";
-import CategoriesFeed from "./[slug]/_components/CategoriesFeed";
-import BlogsFeed from "./[slug]/_components/BlogsFeed";
+import CategoriesFeed from "./_components/CategoriesFeed";
+import BlogsFeed from "./_components/BlogsFeed";
 import { Skeleton } from "@/components/ui/skeleton";
-import ModalButton from "../_components/ModalButton";
-import LinkButton from "../_components/LinkButton";
+import ModalButton from "../_components/SuperButton";
+ 
+import SuperButton from "../_components/SuperButton";
 
 type Props = {};
 
@@ -18,7 +19,8 @@ const BlogsPage = async (props: Props) => {
       <div className="mt-[80px]">
         <div className="flex items-center gap-8 justify-between">
           <Heading title="Categories" className="text-md" />
-          <ModalButton
+          <SuperButton
+            buttonType="modalButton"
             title="Create Category"
             modalInputs={{ modal: "category" }}
           />
@@ -36,7 +38,7 @@ const BlogsPage = async (props: Props) => {
       <div className="mt-[80px]">
         <div className="flex items-center gap-8 justify-between">
           <Heading title="Blogs" className="text-md" />
-          <LinkButton title="Create Blog" href="/blogs/new"/>
+          <SuperButton buttonType="linkButton" title="Create Blog" href="/blogs/new" />
         </div>
 
         <Suspense

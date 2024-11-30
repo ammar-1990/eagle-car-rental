@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import NavList from "./NavList";
-import { SignoutButton } from "./SignoutButton";
+import SuperButton from "./SuperButton";
+ 
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // @typescript-eslint/no-empty-object-type
@@ -26,7 +27,7 @@ const Aside = (props: Props) => {
       {/* nav list */}
       <NavList />
       {/* signout button */}
-      <SignoutButton />
+      <SuperButton className="mt-auto bg-[#41516E] hover:bg-[#41516E]/85" buttonType="signOut" title="Logout"  />
     </aside>
   );
 };

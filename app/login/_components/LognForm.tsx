@@ -18,7 +18,8 @@ import { Button } from "@/components/ui/button";
 import InputField from "@/components/InputField";
 import Image from "next/image";
 import { Loader } from "lucide-react";
-import LoadingButton from "@/app/(dashboard)/_components/LoadingButton";
+import SuperButton from "@/app/(dashboard)/_components/SuperButton";
+ 
 
 type Props = {};
 
@@ -55,7 +56,8 @@ const LognForm = (props: Props) => {
             placeholder="Password"
             type="password"
           />
-         <LoadingButton 
+         <SuperButton
+         buttonType="loadingButton" 
          className=" w-full"
          title="Login"
          type="submit"

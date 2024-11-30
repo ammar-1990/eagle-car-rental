@@ -20,7 +20,7 @@ const LoadingPage = ({fullScreen,type = 'loader'}: Props) => {
     </div>
   )}else{
     return (
-      <div className={cn('grid place-content-center w-full h-full bg-white',fullScreen && ' fixed top-0 left-0')}>
+      <div className={cn('grid place-content-center w-full h-full bg-white')}>
     
     <div className='flex flex-col gap-2 items-center text-site-primary'>
       <span className=''>Loading...</span>
