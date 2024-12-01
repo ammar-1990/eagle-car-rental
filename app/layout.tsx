@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from 'next/font/google'
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner"
+import ModalsProvider from "./providers/ModalsProvider";
 
  
 
@@ -27,6 +28,7 @@ export default function RootLayout({
       >
         <Toaster richColors/>
         {children}
+        <ModalsProvider />
       </body>
     </html>
   );

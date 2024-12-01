@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { log } from "@/lib/utils";
 
 const loginSchema = z.object({
   username: z
@@ -43,9 +44,11 @@ export const useLogin = () => {
             } else {
               router.replace("/");
             }
-            console.log(res);
+        
           } catch (error) {
-            console.log(error);
+            log({
+              messages:[error]
+            });
           }
     })
   

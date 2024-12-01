@@ -11,7 +11,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        console.log("Creadentials",credentials)
+ 
         let user = null
         const username = credentials.username
         const password = credentials.password
@@ -20,7 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
  
         // return user object with their profile data
         if(username !=='eagle car rental' ||  password !=='afsarafsar') return null
-        console.log("Done",true)
+      
         return {name:'Eagle Car Rental'}
       },
     })
