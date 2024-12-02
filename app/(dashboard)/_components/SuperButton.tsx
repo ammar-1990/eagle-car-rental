@@ -2,7 +2,7 @@
 
 import { ModalInputs, useModal } from "@/app/zustand";
 import { Button } from "@/components/ui/button";
-import { cn, log } from "@/lib/utils";
+import { cn, errorToast, log } from "@/lib/utils";
 import { Loader2, LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -41,10 +41,10 @@ const renderButton = (props: SuperButtonProps) => {
 const renderLinkButton = (
   props: LinkType & NormalButton & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
-  const { title, Icon, className, href, buttonType, ...rest } = props;
+  const { title, Icon, className, href, buttonType,variant, ...rest } = props;
 
   return (
-    <Button {...rest} className={cn("", className)} variant={"site"} asChild>
+    <Button {...rest}  className={cn("", className)} variant={variant ?? "site"} asChild>
       <Link href={href}>
         {Icon && Icon}
         {title}
@@ -59,6 +59,7 @@ const renderLoadingButton = (
   const {
     title,
     clickHandler,
+    variant,
     className,
     Icon,
     loading,
@@ -70,7 +71,7 @@ const renderLoadingButton = (
     <Button
       {...rest}
       type={props.type ?? "button"}
-      variant={"site"}
+      variant={variant ?? "site"}
       onClick={async () => (clickHandler ? await clickHandler() : undefined)}
       className={cn("disabled:opacity-55", className)}
       disabled={loading}
@@ -85,7 +86,7 @@ const renderLoadingButton = (
 const renderModalButton = (
   props: NormalButton & ModalType & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
-  const { title, className, Icon, modalInputs, buttonType, ...rest } = props;
+  const { title, className, Icon, modalInputs, buttonType,variant, ...rest } = props;
   const { setOpen } = useModal();
   const handleClick = () => {
     setOpen(modalInputs);
@@ -98,7 +99,7 @@ const renderModalButton = (
   return (
     <Button
       {...rest}
-      variant={"site"}
+      variant={variant ?? "site"}
       className={cn("", className)}
       onClick={handleClick}
     >
@@ -111,7 +112,7 @@ const renderModalButton = (
 const renderPushButton = (
   props: NormalButton & PushType & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
-  const { title, Icon, className, href, buttonType, ...rest } = props;
+  const { title, Icon, className, href, buttonType,variant, ...rest } = props;
   const [pending, startTransition] = useTransition();
   const router = useRouter();
   const handler = () => {
@@ -125,7 +126,7 @@ const renderPushButton = (
       {...rest}
       disabled={pending}
       className={cn("disabled:opacity-55", className)}
-      variant={"site"}
+      variant={variant ?? "site"}
     >
       {Icon && Icon}
       {title}
@@ -137,7 +138,7 @@ const renderPushButton = (
 const renderSignoutButton = (
   props: NormalButton & SignOutType & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
-  const { title, className, loadingTitle, buttonType, ...rest } = props;
+  const { title, className, loadingTitle, buttonType,variant, ...rest } = props;
   const [pending, startTransition] = useTransition();
   const signOutHandler = async () => {
     startTransition(async () => {
@@ -145,7 +146,7 @@ const renderSignoutButton = (
         await signOut();
       } catch (error) {
         console.error("error logging out", error);
-        toast.error("Something went wrong");
+        errorToast();
       }
     });
   };
@@ -181,8 +182,9 @@ type LoadingType = {
 };
 
 type NormalButton = {
+  variant: "default" | "link" | "site" | "destructive" | "outline" | "secondary" | "ghost" ,
   className?: string;
-  title: string;
+  title?: string;
   clickHandler?: () => Promise<void>;
   Icon?: ReactNode;
 };

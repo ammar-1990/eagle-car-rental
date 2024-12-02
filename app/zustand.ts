@@ -11,12 +11,15 @@ type ModalStore = {
 export type ModalInputs = 
 {
 modal:'category',
-data?:Partial<BlogCategory>
+data?:BlogCategory
 } | 
 {
     modal:'blog',
-    data?:Partial<Blog>
-}  
+    data?:Blog
+}  |{
+  modal:'delete',
+  function:()=>Promise<{success:boolean,message:string}>
+}
 
 export const useModal = create<ModalStore>()((set) => ({
 open:false,

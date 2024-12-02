@@ -47,6 +47,7 @@ export const useLogin = () => {
         
           } catch (error) {
             log({
+              type:'error',
               messages:[error]
             });
           }

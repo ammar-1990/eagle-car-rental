@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import CategoryModal from "../(dashboard)/blogs/modals/CategoryModal"
+import CategoryModal from "../(dashboard)/blogs/_components/modals/CategoryModal"
+import DeleteModal from "@/components/DeleteModal"
 
 type Props = {}
 
@@ -15,6 +16,7 @@ setMounted(true)
   return (
     <>
     <CategoryModal />
+    <DeleteModal/>
     </>
   )
 }
