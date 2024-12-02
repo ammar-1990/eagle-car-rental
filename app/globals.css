@@ -81,3 +81,8 @@ body {
 .icon {
   @apply w-[12px] h-[12px]
 }
+
+
+.bn-editor {
+  @apply bg-[#F5F6FA] !important
+}

@@ -10,10 +10,14 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@blocknote/core": "^0.19.2",
+    "@blocknote/mantine": "^0.19.2",
+    "@blocknote/react": "^0.19.2",
     "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^5.22.0",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

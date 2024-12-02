@@ -182,7 +182,7 @@ type LoadingType = {
 };
 
 type NormalButton = {
-  variant: "default" | "link" | "site" | "destructive" | "outline" | "secondary" | "ghost" ,
+  variant?: "default" | "link" | "site" | "destructive" | "outline" | "secondary" | "ghost" ,
   className?: string;
   title?: string;
   clickHandler?: () => Promise<void>;

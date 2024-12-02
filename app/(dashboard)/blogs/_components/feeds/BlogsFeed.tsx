@@ -1,4 +1,6 @@
-import Heading from '@/app/(dashboard)/_components/Heading'
+
+ 
+import NoResult from '@/components/NoResult'
 import prisma from '@/lib/prisma'
 import React from 'react'
 
@@ -9,7 +11,7 @@ const BlogsFeed = async(props: Props) => {
 
   return (
     <div className='min-h-[200px]'>
-      
+      {!blogs.length && <div className='mt-2'><NoResult title='No BLogs' /></div>}
     </div>
   )
 }
