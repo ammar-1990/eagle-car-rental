@@ -12,7 +12,7 @@ import { Input } from "./ui/input";
 import { HTMLInputTypeAttribute } from "react";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
-const Editor = dynamic(()=>import('@/components/Editor'),{ssr:false})
+const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
 
 type Props<T extends FieldValues> = {
   form: UseFormReturn<T>;
@@ -31,6 +31,23 @@ const EditorField = <T extends FieldValues>({
   editorStyles,
   labelStyles,
 }: Props<T>) => {
+
+
+  const theme: {
+    colors: {
+      editor: {
+        text: string;
+        background: string;
+      };
+    };
+  } = {
+    colors: {
+      editor: {
+        background: "#F5F6FA",
+        text: "#777",
+      },
+    },
+  };
   return (
     <FormField
       control={form.control}
@@ -40,10 +57,14 @@ const EditorField = <T extends FieldValues>({
           <FormLabel className={cn("text-[#606060]", labelStyles)}>
             {label}
           </FormLabel>
-          <FormControl>
-            <div className={cn("rounded-sm border bg-[#F5F6FA]  border-input min-h-[40px] pt-1",editorStyles)}>
-              <Editor placeholder={placeholder} onChange={field.onChange} initialContent={field.value} />
-            </div>
+          <FormControl>       
+              <Editor
+              className={cn('rounded-sm border bg-[#F5F6FA] focus-within:ring-1 focus-within:ring-ring border-input min-h-[40px] pt-1',editorStyles)}
+                placeholder={placeholder}
+                onChange={field.onChange}
+                initialContent={field.value}
+                theme={theme}
+              />          
           </FormControl>
           <FormMessage />
         </FormItem>

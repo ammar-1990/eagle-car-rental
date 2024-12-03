@@ -19,12 +19,13 @@ type Props<T extends FieldValues,Model> = {
     placeholder: string,
     labelStyles?:string,
     inputStyles?:string,
+    optionStyles?:string
     values:Model[]
     renderItem: (item: Model) => { value: string; label: string }
 
   };
 
-const SelectField = <T extends FieldValues, Model>({form,label,placeholder,name,values,renderItem,labelStyles,inputStyles}: Props<T,Model>) => {
+const SelectField = <T extends FieldValues, Model>({form,label,placeholder,name,values,renderItem,labelStyles,inputStyles,optionStyles}: Props<T,Model>) => {
   return (
     <FormField
           control={form.control}
@@ -42,7 +43,7 @@ const SelectField = <T extends FieldValues, Model>({form,label,placeholder,name,
                 {values.map((item) => {
                 const { value, label } = renderItem(item);
                 return (
-                  <SelectItem className="cursor-pointer" key={value} value={value}>
+                  <SelectItem className={cn(' cursor-pointer ',optionStyles)} key={value} value={value}>
                     {label}
                   </SelectItem>
                 );

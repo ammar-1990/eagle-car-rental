@@ -19,6 +19,8 @@ const BlogForm = ({ blog, categories }: Props) => {
           label="Blog Category"
           name="categoryId"
           placeholder="Choose Blog Category"
+          inputStyles="capitalize"
+          optionStyles="capitalize"
           values={categories}
           renderItem={(value) => ({ label: value.title, value: value.id })}
         />
@@ -35,6 +37,7 @@ const BlogForm = ({ blog, categories }: Props) => {
           placeholder="Enter Blog Title"
         />
         <EditorField 
+        editorStyles="min-h-[150px]"
         form={form}
         label="Blog Content"
         name="content"

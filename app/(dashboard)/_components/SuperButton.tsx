@@ -11,34 +11,34 @@ import { ButtonHTMLAttributes, ReactNode, useTransition } from "react";
 import { toast } from "sonner";
 
 const SuperButton = (props: SuperButtonProps) => {
-  return renderButton(props);
+  return RenderButton(props);
 };
 
 export default SuperButton;
 
-const renderButton = (props: SuperButtonProps) => {
+const RenderButton = (props: SuperButtonProps) => {
   const { buttonType } = props;
 
   switch (buttonType) {
     case "linkButton": {
-      return renderLinkButton(props);
+      return <RenderLinkButton {...props}/>;
     }
     case "loadingButton": {
-      return renderLoadingButton(props);
+      return <RenderLoadingButton  {...props} />;
     }
     case "modalButton": {
-      return renderModalButton(props);
+      return <RenderModalButton  {...props}/>;
     }
     case "pushButton": {
-      return renderPushButton(props);
+      return <RenderPushButton  {...props} />;
     }
     case "signOut": {
-      return renderSignoutButton(props);
+      return <RenderSignoutButton  {...props} />;
     }
   }
 };
 
-const renderLinkButton = (
+const RenderLinkButton = (
   props: LinkType & NormalButton & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
   const { title, Icon, className, href, buttonType,variant, ...rest } = props;
@@ -53,7 +53,7 @@ const renderLinkButton = (
   );
 };
 
-const renderLoadingButton = (
+const RenderLoadingButton = (
   props: LoadingType & NormalButton & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
   const {
@@ -83,7 +83,7 @@ const renderLoadingButton = (
   );
 };
 
-const renderModalButton = (
+const RenderModalButton = (
   props: NormalButton & ModalType & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
   const { title, className, Icon, modalInputs, buttonType,variant, ...rest } = props;
@@ -109,7 +109,7 @@ const renderModalButton = (
   );
 };
 
-const renderPushButton = (
+const RenderPushButton = (
   props: NormalButton & PushType & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
   const { title, Icon, className, href, buttonType,variant, ...rest } = props;
@@ -135,7 +135,7 @@ const renderPushButton = (
   );
 };
 
-const renderSignoutButton = (
+const RenderSignoutButton = (
   props: NormalButton & SignOutType & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
   const { title, className, loadingTitle, buttonType,variant, ...rest } = props;
