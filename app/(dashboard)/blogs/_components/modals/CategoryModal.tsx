@@ -1,5 +1,5 @@
-
-import { useModal } from "@/app/zustand";
+'use client'
+import { useModal } from "@/app/hooks/zustand";
 import {
   Dialog,
   DialogContent,
@@ -13,20 +13,24 @@ import {
   Form,
 } from "@/components/ui/form";
 import InputField from "@/components/InputField";
-import SuperButton from "@/app/(dashboard)/_components/SuperButton";
+import SuperButton from "@/components/SuperButton";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { log } from "@/lib/utils";
 const Editor = dynamic(()=>import('@/components/Editor'),{ssr:false})
 
 type Props = {};
 
 const CategoryModal = (props: Props) => {
   const { open, setClose, modalInputs } = useModal();
-  const isOpen = open && modalInputs?.modal === "category";
   const category = modalInputs?.modal === "category" ?  modalInputs.data : undefined;
-  const { form, onSubmit } = useCategory(category);
-  const title = category ? `Update ${category.title}` : "Create Blog Category";
+  log({
 
+    messages:["Category modal data",category]
+  })
+  const { form, onSubmit } = useCategory();
+  const title = category ? `Update ${category.title}` : "Create Blog Category";
+  const isOpen = open && modalInputs?.modal === "category";
   return (
     <Dialog open={isOpen} onOpenChange={()=>{
       if(form.formState.isSubmitting) return

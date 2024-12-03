@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import InputField from "@/components/InputField";
 import Image from "next/image";
 import { Loader } from "lucide-react";
-import SuperButton from "@/app/(dashboard)/_components/SuperButton";
+import SuperButton from "@/components/SuperButton";
  
 
 type Props = {};

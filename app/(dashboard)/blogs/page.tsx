@@ -4,9 +4,9 @@ import Heading from "../_components/Heading";
 import CategoriesFeed from "./_components/feeds/CategoriesFeed";
 import BlogsFeed from "./_components/feeds/BlogsFeed";
 import { Skeleton } from "@/components/ui/skeleton";
-import ModalButton from "../_components/SuperButton";
+import ModalButton from "../../../components/SuperButton";
 
-import SuperButton from "../_components/SuperButton";
+import SuperButton from "../../../components/SuperButton";
 import { PlusCircle } from "lucide-react";
 
 type Props = {};
@@ -25,7 +25,7 @@ const BlogsPage = async (props: Props) => {
             buttonType="modalButton"
             title="Category"
             Icon={<PlusCircle className="icon" />}
-            modalInputs={{ modal: "category" }}
+            modalInputs={{ modal: "category",data:undefined }}
           />
         </div>
         <Suspense

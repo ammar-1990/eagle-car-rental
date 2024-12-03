@@ -1,6 +1,6 @@
 'use client'
-import SuperButton from "@/app/(dashboard)/_components/SuperButton"
-import { useModal } from "@/app/zustand"
+import SuperButton from "@/components/SuperButton"
+import { useModal } from "@/app/hooks/zustand"
 import {
     Dialog,
     DialogContent,

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import NavList from "./NavList";
-import SuperButton from "./SuperButton";
+import SuperButton from "../../../components/SuperButton";
  
 
 /* eslint-disable @typescript-eslint/no-unused-vars */

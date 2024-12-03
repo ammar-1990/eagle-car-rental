@@ -5,27 +5,36 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { errorToast, log } from "@/lib/utils"
-import { useModal } from "@/app/zustand"
-import { useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { createCategory } from "../actions/createCategory"
 import { updateCategory } from "../actions/updateCategory"
 import { categorySchema } from "../schemas"
+import { useModal } from "@/app/hooks/zustand"
+import { useEffect } from "react"
  
 
 
-export const useCategory = (category?:BlogCategory)=>{
-    const {setClose} = useModal()
+export const useCategory = ()=>{
+    const {setClose,modalInputs} = useModal()
     const router = useRouter()
-    
- 
+   const category  = modalInputs?.modal === 'category' ? modalInputs.data : null
     const form = useForm<z.infer<typeof categorySchema>>({
         resolver: zodResolver(categorySchema),
         defaultValues: {
           title:category ? category.title : "",
         },
       })
+
+      //reset form 
+      useEffect(() => {
+      
+          form.reset({
+            title: category?.title ?? '',
+          });
+       
+         
+      }, [category, form]);
 
     async  function onSubmit(values: z.infer<typeof categorySchema>) {
         let res

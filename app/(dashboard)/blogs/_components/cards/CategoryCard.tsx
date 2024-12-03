@@ -1,5 +1,5 @@
 'use client'
-import SuperButton from '@/app/(dashboard)/_components/SuperButton'
+import SuperButton from '@/components/SuperButton'
 import { BlogCategory } from '@prisma/client'
 import { Delete, Edit } from 'lucide-react'
 import React from 'react'

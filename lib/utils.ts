@@ -16,7 +16,7 @@ export function log({
 }: {
   shouldLog?: boolean ;
   type?: "error" | "warn" | '';
-  messages: any[];
+  messages: unknown[];
 }): void {
   if (shouldLog) {
 

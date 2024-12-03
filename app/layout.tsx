@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { Poppins } from 'next/font/google'
+import { Poppins } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 import ModalsProvider from "./providers/ModalsProvider";
-
- 
+import { EdgeStoreProvider } from "../lib/edgestore";
 
 const poppins = Poppins({
-  weight: ['400','500','700','900'],
-  subsets: ['latin'],
-})
+  weight: ["400", "500", "700", "900"],
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,11 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${poppins.className} antialiased`}
-      >
-        <Toaster richColors/>
-        {children}
+      <body className={`${poppins.className} antialiased`}>
+        <Toaster richColors />
+        <EdgeStoreProvider>{children}</EdgeStoreProvider>
         <ModalsProvider />
       </body>
     </html>

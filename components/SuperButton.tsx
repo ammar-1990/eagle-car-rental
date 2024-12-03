@@ -1,6 +1,6 @@
 "use client";
 
-import { ModalInputs, useModal } from "@/app/zustand";
+import { ModalInputs, useModal } from "@/app/hooks/zustand";
 import { Button } from "@/components/ui/button";
 import { cn, errorToast, log } from "@/lib/utils";
 import { Loader2, LogOut } from "lucide-react";
