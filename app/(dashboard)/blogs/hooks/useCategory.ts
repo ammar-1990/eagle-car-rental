@@ -22,7 +22,7 @@ export const useCategory = ()=>{
     const form = useForm<z.infer<typeof categorySchema>>({
         resolver: zodResolver(categorySchema),
         defaultValues: {
-          title:category ? category.title : "",
+          title:category?.title ?? '',
         },
       })
 

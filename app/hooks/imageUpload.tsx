@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { useEdgeStore } from "@/lib/edgestore";
 import { Loader, XIcon } from "lucide-react";
@@ -92,5 +92,5 @@ export const useImageUpload = <T extends FieldValues>({ form,fieldName }:  UseIm
         </div>
       );
   };
-
-  return { file, setFile, uploadImage, ImagePlaceholder }}
+const isDisabled = !file || !!imageLoader || form.watch(fieldName)
+  return { file, setFile, uploadImage, ImagePlaceholder ,isDisabled}}

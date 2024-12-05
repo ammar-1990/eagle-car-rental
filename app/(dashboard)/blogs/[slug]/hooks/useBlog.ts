@@ -12,7 +12,8 @@ export const useBlog = (blog:Blog | null)=>{
           title:blog?.title ?? '',
           content:blog?.content ?? '',
           categoryId:blog?.categoryId ?? '',
-          slug:blog?.slug ??''
+          slug:blog?.slug ??'',
+          featuredImage:blog?.featuredImage ??''
         },
       })
 
