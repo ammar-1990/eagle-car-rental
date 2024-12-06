@@ -12,7 +12,7 @@ export const updateCategory = async ({data,id}:{data: z.infer<typeof categorySch
     const session = await auth();
     if (!session) return throwCustomError("Unauthorized");
 
-    if(!id)return throwCustomError('id is required')
+    if(!id)return throwCustomError('ID Is Required')
 
     const validData = categorySchema.safeParse(data);
     if (!validData.success)return   throwCustomError("Invalid Inputs");

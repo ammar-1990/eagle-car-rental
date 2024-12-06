@@ -1,7 +1,7 @@
 "use client";
 import { Blog, BlogCategory } from "@prisma/client";
 import React from "react";
-import { useBlog } from "../hooks/useBlog";
+import { useBlog } from "../../hooks/useBlog";
 import { Form } from "@/components/ui/form";
 import InputField from "@/components/InputField";
 import SelectField from "@/components/SelectField";
@@ -13,7 +13,7 @@ import SuperButton from "@/components/SuperButton";
 type Props = { blog: Blog | null; categories: BlogCategory[] };
 
 const BlogForm = ({ blog, categories }: Props) => {
-  const { form, onSubmit } = useBlog(blog);
+  const { form, onSubmit,pending } = useBlog(blog);
   const { file, setFile, uploadImage, ImagePlaceholder, isDisabled } =
     useImageUpload({
       form,
@@ -69,7 +69,7 @@ const BlogForm = ({ blog, categories }: Props) => {
               className="w-full"
               type="submit"
               buttonType="loadingButton"
-              loading={form.formState.isSubmitting}
+              loading={pending}
               title={blog ? "Update" : "Create"}
             />
       </form>

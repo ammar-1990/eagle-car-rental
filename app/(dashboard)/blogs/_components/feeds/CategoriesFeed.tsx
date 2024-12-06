@@ -13,7 +13,7 @@ const CategoriesFeed = async(props: Props) => {
 
   return (
     <div>
-        {!categories.length && <div className='mt-2'><NoResult title='No Categories' /></div>}
+        {!categories.length && <div className='mt-2'><NoResult title='No Categories' description='Create Categories For Your Blogs' /></div>}
         {!!categories.length && <div className='min-h-[100px] flex gap-2 items-center flex-wrap mt-2'>
       {categories.map(category=><CategoryCard key={category.id} category={category} />)}
     </div>}

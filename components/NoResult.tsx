@@ -11,9 +11,9 @@ type Props = {
 
 const NoResult = ({title,className,description,titleClassName,descriptionClassName}: Props) => {
   return (
-    <div className={cn('w-full min-h-[200px] border rounded-md flex items-center justify-center gap-1 bg-slate-50',className)}>
-        <p className={cn('text-3xl',titleClassName)}>{title}</p>
-        {description && <p className={cn('text-md',descriptionClassName)}>{description}</p>}
+    <div className={cn('w-full min-h-[200px] border rounded-md flex flex-col items-center justify-center  bg-slate-50',className)}>
+        <p className={cn('text-sm',titleClassName)}>{title}</p>
+        {description && <p className={cn('text-xs text-muted-foreground',descriptionClassName)}>{description}</p>}
     </div>
   )
 }

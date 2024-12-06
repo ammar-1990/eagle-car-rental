@@ -123,6 +123,7 @@ const RenderPushButton = (
 
   return (
     <Button
+    onClick={handler}
       {...rest}
       disabled={pending}
       className={cn("disabled:opacity-55", className)}
@@ -198,7 +199,7 @@ type LinkType = {
 
 type PushType = {
   buttonType: "pushButton";
-  href: "string";
+  href: string;
 };
 
 type SignOutType = {
