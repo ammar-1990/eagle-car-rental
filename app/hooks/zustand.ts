@@ -1,4 +1,4 @@
-import { Blog, BlogCategory } from '@prisma/client'
+import { Blog, BlogCategory, CarType } from '@prisma/client'
 import { create } from 'zustand'
 
 type ModalStore = {
@@ -12,11 +12,10 @@ export type ModalInputs =
 {
 modal:'category',
 data?:BlogCategory
-} | 
-{
-    modal:'blog',
-    data?:Blog
 }  |{
+  modal:'carType',
+  data?:CarType
+  }  |{
   modal:'delete',
   function:()=>Promise<{success:boolean,message:string}>
 }

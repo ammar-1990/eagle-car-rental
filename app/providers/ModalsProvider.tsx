@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import CategoryModal from "../(dashboard)/blogs/_components/modals/CategoryModal"
 import DeleteModal from "@/components/DeleteModal"
+import CarTypeModal from "../(dashboard)/cars/_components/modals/CarTypeModal"
 
 type Props = {}
 
@@ -16,6 +17,7 @@ setMounted(true)
   return (
     <>
     <CategoryModal />
+    <CarTypeModal/>
     <DeleteModal/>
     </>
   )

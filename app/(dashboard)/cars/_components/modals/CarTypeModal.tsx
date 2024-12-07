@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Heading from "../../../_components/Heading";
-import { useCategory } from "../../hooks/useCategory";
+
 import {
   Form,
 } from "@/components/ui/form";
@@ -17,20 +17,22 @@ import SuperButton from "@/components/SuperButton";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { log } from "@/lib/utils";
+import { useCategory } from "@/app/(dashboard)/blogs/hooks/useCategory";
+import { useCarType } from "../../hooks/useCarType";
 const Editor = dynamic(()=>import('@/components/Editor'),{ssr:false})
 
 type Props = {};
 
-const CategoryModal = (props: Props) => {
+const CarTypeModal = (props: Props) => {
   const { open, setClose, modalInputs } = useModal();
-  const category = modalInputs?.modal === "category" ?  modalInputs.data : undefined;
+  const carType = modalInputs?.modal === "carType" ?  modalInputs.data : undefined;
   log({
 
-    messages:["Category modal data",category]
+    messages:["Category modal data",carType]
   })
-  const { form, onSubmit } = useCategory();
-  const title = category ? `Update ${category.title}` : "Create Blog Category";
-  const isOpen = open && modalInputs?.modal === "category";
+  const { form, onSubmit } = useCarType();
+  const title = carType ? `Update ${carType.title}` : "Create Car Type";
+  const isOpen = open && modalInputs?.modal === "carType";
   return (
     <Dialog open={isOpen} onOpenChange={()=>{
       if(form.formState.isSubmitting) return
@@ -39,7 +41,7 @@ const CategoryModal = (props: Props) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            <Heading title="Blog Category" />
+            <Heading title="Car Type" />
           </DialogTitle>
           <DialogDescription>{title}</DialogDescription>
         </DialogHeader>
@@ -50,7 +52,7 @@ const CategoryModal = (props: Props) => {
               form={form}
               label="Title"
               name="title"
-              placeholder="Enter Category Title"
+              placeholder="Enter Car Type"
             />
             <SuperButton
               variant="site"
@@ -58,7 +60,7 @@ const CategoryModal = (props: Props) => {
               type="submit"
               buttonType="loadingButton"
               loading={form.formState.isSubmitting}
-              title={category ? "Update" : "Create"}
+              title={carType ? "Update" : "Create"}
             />
           </form>
         </Form>
@@ -67,4 +69,4 @@ const CategoryModal = (props: Props) => {
   );
 };
 
-export default CategoryModal;
+export default CarTypeModal;
