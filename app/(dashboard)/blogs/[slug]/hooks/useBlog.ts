@@ -23,7 +23,8 @@ export const useBlog = (blog:Blog | null)=>{
           content:blog?.content ?? '',
           categoryId:blog?.categoryId ?? '',
           slug:blog?.slug ??'',
-          featuredImage:blog?.featuredImage ??''
+          featuredImage:blog?.featuredImage ??'',
+          seoDescription:blog?.seoDescription ?? ''
         },
       })
 

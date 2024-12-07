@@ -9,6 +9,7 @@ import EditorField from "@/components/EditorField";
 import { useImageUpload } from "@/app/hooks/imageUpload";
 import { SingleImageUploadField } from "@/components/SingleImageUploadField";
 import SuperButton from "@/components/SuperButton";
+import TextAreaField from "@/components/TextAreaField";
 
 type Props = { blog: Blog | null; categories: BlogCategory[] };
 
@@ -44,6 +45,13 @@ const BlogForm = ({ blog, categories }: Props) => {
           label="BLog Title"
           name="title"
           placeholder="Enter Blog Title"
+        />
+
+        <TextAreaField
+          form={form}
+          label="SEO Description"
+          name="seoDescription"
+          placeholder="Enter SEO Description"
         />
 
         <SingleImageUploadField

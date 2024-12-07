@@ -22,7 +22,7 @@ export const createBlog = async(data: z.infer<typeof blogSchema>):Promise<{succe
                     }
                 })
 
-                if(slugExist) return  throwCustomError('Blog Slog Already Exists')
+                if(slugExist) return  throwCustomError('Blog Slug Already Exists')
 
                     await prisma.blog.create({
                         data:{

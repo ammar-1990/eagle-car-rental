@@ -3,7 +3,7 @@ import ImageComponent from "@/components/ImageComponent";
 import SuperButton from "@/components/SuperButton";
 import { Blog } from "@prisma/client";
 import { Delete, Edit } from "lucide-react";
-import Link from "next/link";
+import {format} from 'date-fns'
 import React from "react";
 import { deleteBlog } from "../../actions/deleteBlog";
 
@@ -19,6 +19,8 @@ const BlogCard = ({ blog }: Props) => {
         className="rounded-md overflow-hidden"
       />
       <h2 className="capitalize font-semibold font-lg">{blog.title}</h2>
+      <p className="line-clamp-3 first-letter:capitalize text-muted-foreground text-xs">{blog.seoDescription}</p>
+      <p className="text-right text-xs font-semibold text-muted-foreground">{format(new Date(blog.createdAt),'MMMM d, yyyy, hh:mm a')}</p>
       <div className="flex gap-2">
         <SuperButton
           className="flex-1"
