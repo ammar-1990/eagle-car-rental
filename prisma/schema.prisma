@@ -23,29 +23,40 @@ model CarType {
 }
 
 model Car {
-  id                 String       @id @default(uuid())
-  slug               String       @unique
+  id                 String         @id @default(uuid())
+  slug               String         @unique
   //car info
   carTypeId          String
-  carType            CarType      @relation(fields: [carTypeId], references: [id])
+  carType            CarType        @relation(fields: [carTypeId], references: [id])
   subTitle           String
   locationId         String
-  location           Location     @relation(fields: [locationId], references: [id])
+  location           Location       @relation(fields: [locationId], references: [id])
   seats              Int
-  transmission       Transmission
+
   fuel               Fuel
   //apperance
   image              String
   //pricing
-  pricing            Float[]
+  pricing            Json
   bookings           Booking[]
+  extraOptions       ExtraOptions[]
   //rental details
   kmIncluded         Float
   deliveryFee        Float
-  minimumRentalHours Int
+  minimumRentalHours Int 
   deposit            Float
 
   disabled  Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ExtraOptions {
+  id    String @id @default(uuid())
+  title String
+  price Float
+  carId String
+  car   Car    @relation(fields: [carId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -123,13 +134,6 @@ model Faq {
 }
 
 //enums
-
-enum Transmission {
-  MANUAL
-  AUTOMATIC
-  CVT
-  TIPTRONIC
-}
 
 enum Fuel {
   GASOLINE
