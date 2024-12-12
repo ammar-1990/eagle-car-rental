@@ -29,8 +29,7 @@ model Car {
   carTypeId          String
   carType            CarType        @relation(fields: [carTypeId], references: [id])
   subTitle           String
-  locationId         String
-  location           Location       @relation(fields: [locationId], references: [id])
+  location            Locations 
   seats              Int
 
   fuel               Fuel
@@ -42,7 +41,6 @@ model Car {
   extraOptions       ExtraOptions[]
   //rental details
   kmIncluded         Float
-  deliveryFee        Float
   minimumRentalHours Int 
   deposit            Float
 
@@ -94,15 +92,7 @@ model Booking {
   updatedAt DateTime @updatedAt
 }
 
-model Location {
-  id        String   @id @default(uuid())
-  slug      String   @unique
-  title     String
-  cars      Car[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
+ 
 model BlogCategory {
   id    String @id @default(uuid())
   title String
@@ -144,4 +134,10 @@ enum Fuel {
 
 enum PaymentMethod {
   CARD
+}
+
+enum Locations {
+  LOS_ANGELES
+  LAS_VEGAS
+  ORLANDO
 }

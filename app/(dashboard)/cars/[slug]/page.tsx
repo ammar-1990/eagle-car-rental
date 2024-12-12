@@ -17,11 +17,20 @@ const CarPage = async({params}: Props) => {
   const carTypesRes = prisma.carType.findMany()
     const carRes =  prisma.car.findUnique({
         where:{
-            slug:slug
-        }
+            slug:slug,
+            
+        },
     })
 
-    const [carTypes,car] = await  Promise.all([carTypesRes,carRes])
+    const extraOptionsRes = prisma.extraOptions.findMany({
+      where:{
+        car:{
+          slug:slug
+        }
+      }
+    })
+
+    const [carTypes,car,extraOptions] = await  Promise.all([carTypesRes,carRes,extraOptionsRes])
     if(!car && slug !=='new') return notFound()
     const title = car ? `Update ${car.subTitle}` : 'Create New Car'
 
@@ -39,7 +48,7 @@ const CarPage = async({params}: Props) => {
            <Heading title={title} />
             {/* car form */}
       <div className="mt-2">
-        <CarForm car={car} carTypes={carTypes} />
+        <CarForm car={car} carTypes={carTypes} extraOptions={extraOptions.map(item=>({title:item.title,price:String(item.price)}))} />
       </div>
     </div>
   )
