@@ -33,6 +33,7 @@ import { SingleImageUploadField } from "@/components/SingleImageUploadField";
 import Heading from "@/app/(dashboard)/_components/Heading";
 import { Button } from "@/components/ui/button";
 import { useFieldArray } from "react-hook-form";
+import CheckboxField from "@/components/CheckboxField";
 
 type Props = {
   car: Car | null;
@@ -222,7 +223,7 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
           />
           <InputField
             form={form}
-            name={`minimumRentalHouds`}
+            name={`minimumRentalHours`}
             inputStyles="max-w-[357px]"
             label={"Minimum Rental Hours"}
             placeholder={`Add Minimum Rental Hours`}
@@ -288,9 +289,14 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
         </FormWrapper>
         {/* Disabled */}
         <FormWrapper title="Disable The Car">
-
+            <CheckboxField
+            form={form}
+            name={'disabled'}
+            label="Disable The Car"
+            />
+            <p className="text-[15.9px] text-[#A6A6A6]">If checked, the car will not show on the website.</p>
         </FormWrapper>
-{/* {JSON.stringify(form.formState.errors)} */}
+
         <SuperButton
           loading={pending}
           buttonType="loadingButton"
@@ -298,6 +304,9 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
           variant="site"
           title={car ? "Update" : "Create"}
         />
+
+{/* {JSON.stringify(Object.entries(form.formState.errors).map(([key,value])=>([key,value.message])))} */}
+{/* {JSON.stringify(Object.keys(form.formState.errors))} */}
       </form>
     </Form>
   );

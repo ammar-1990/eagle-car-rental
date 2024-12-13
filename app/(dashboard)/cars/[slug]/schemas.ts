@@ -30,7 +30,7 @@ export const carSchema = z.object({
       pricing:pricingSchema,
       extraOptions:z.array(extraOptionsSchema),
       kmIncluded:numberSchema,
-      minimumRentalHouds:numberSchema,
+      minimumRentalHours:numberSchema,
       deposit:numberSchema,
       disabled:z.boolean()
     })

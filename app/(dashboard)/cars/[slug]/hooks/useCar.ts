@@ -10,9 +10,12 @@ import {
   PricingType,
 } from "../schemas";
 import { Car } from "@prisma/client";
-import { log } from "@/lib/utils";
+import { errorToast, log } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { updateCar } from "../actions/updateCar";
+import { createCar } from "../actions/createCar";
+import { toast } from "sonner";
 
 export const useCar = (car: Car | null, extraOptions: ExtraOptionsType[]) => {
   const router = useRouter();
@@ -33,28 +36,42 @@ export const useCar = (car: Car | null, extraOptions: ExtraOptionsType[]) => {
         weeks: Array(3).fill(""),
         months: Array(6).fill(""),
       },
-      extraOptions: !!extraOptions.length
-        ? extraOptions
-        : [
-            { price: "", title: "" },
-            { price: "", title: "" },
-          ],
+      extraOptions: extraOptions,
       kmIncluded: `${car?.kmIncluded ?? ""}`,
-      minimumRentalHouds: `${car?.minimumRentalHours ?? ""}`,
+      minimumRentalHours: `${car?.minimumRentalHours ?? ""}`,
       deposit: `${car?.deposit ?? ""}`,
-      disabled: car?.disabled,
+      disabled: car?.disabled ?? false,
     },
   });
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof carSchema>) {
-    alert(JSON.stringify(values,undefined,2))
+    startTransition(async () => {
+
+      try {
+        let res;
+        if (car) {
+          res = await updateCar({data:values,id:car.id})
+        } else {
+          res = await createCar(values)
+        }
+        if(!res.success){
+          errorToast(res.message)
+        }else{
+          toast.success(res.message)
+          router.push('/cars')
+        }
+      } catch (error) {
+        errorToast()
+      }
+  
+    });
+
     log({
       messages: ["Car Values", values],
       shouldLog: true,
     });
   }
 
-
-  return { form, onSubmit, pending};
+  return { form, onSubmit, pending };
 };
