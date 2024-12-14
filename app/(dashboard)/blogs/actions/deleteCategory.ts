@@ -12,6 +12,16 @@ const session = await auth()
 if(!session) return throwCustomError('Unauthorized')
     if(!id) return throwCustomError('id is required')
 
+        const relatedBlogsCount = await prisma.blog.count({
+            where: {
+              categoryId: id,
+            },
+          });
+      
+          if (relatedBlogsCount > 0) {
+          return throwCustomError(`Unable To Delete - You have ${relatedBlogsCount} blog${relatedBlogsCount > 1 ? 's' : ''} Related To This Category`)
+          }
+
         const deletedItem = await prisma.blogCategory.delete({
             where:{
                 id
