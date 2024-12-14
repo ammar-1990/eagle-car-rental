@@ -12,6 +12,15 @@ const session = await auth()
 if(!session) return throwCustomError('Unauthorized')
     if(!id) return throwCustomError('id is required')
 
+        const relatedCarsCount = await prisma.car.count({
+            where:{
+                carTypeId:id
+            }
+        })
+
+        if(relatedCarsCount > 0){
+           return  throwCustomError(`Unable To Delete - You Have ${relatedCarsCount} Car${relatedCarsCount > 1 ? 's' : '' } Related To This Type`)
+        }
         const deletedItem = await prisma.carType.delete({
             where:{
                 id
