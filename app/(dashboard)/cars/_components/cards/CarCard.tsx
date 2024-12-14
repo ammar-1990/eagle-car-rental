@@ -15,13 +15,13 @@ type Props = {
 
 const CarCard = ({ car }: Props) => {
   return (
-    <div className="rounded-[12.48px] border overflow-hidden min-w-[265px] max-w-[400px] flex-1">
+    <div className="rounded-[12.48px] border overflow-hidden w-full">
       <ImageComponent aspect="video" src={car.image} alt="car-image" />
       <div className="py-[15px] px-[12px] flex flex-col w-full gap-[10.58px]">
         <h3 className="text-[13px] font-[600] text-black/80 capitalize">{car.subTitle}</h3>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <SuperButton
-          className="rounded-full text-[11px] capitalize min-w-[188px] max-w-[250px] flex-1 h-[29px] items-center leading-[13.31px]"
+          className="rounded-full text-[11px] capitalize   flex-1 h-[29px] items-center leading-[13.31px]"
             buttonType="linkButton"
             title="Update Car"
             Icon={<Edit className="icon" />}
