@@ -21,11 +21,10 @@ const BlogsPage = async (props: Props) => {
         <div className="flex items-center gap-8 justify-between">
           <Heading title="Categories" className="text-md" />
           <SuperButton
-
             buttonType="modalButton"
             title="Category"
             Icon={<PlusCircle className="icon" />}
-            modalInputs={{ modal: "category",data:undefined }}
+            modalInputs={{ modal: "category", data: undefined }}
           />
         </div>
         <Suspense
@@ -48,14 +47,15 @@ const BlogsPage = async (props: Props) => {
             Icon={<PlusCircle className="icon" />}
           />
         </div>
-
-        <Suspense
-          fallback={
-            <Skeleton className="h-[200px] w-full mt-2 bg-muted-foreground" />
-          }
-        >
-          <BlogsFeed />
-        </Suspense>
+        <div className="mt-2">
+          <Suspense
+            fallback={
+              <Skeleton className="h-[200px] w-full mt-2 bg-muted-foreground" />
+            }
+          >
+            <BlogsFeed />
+          </Suspense>
+        </div>
       </div>
     </div>
   );

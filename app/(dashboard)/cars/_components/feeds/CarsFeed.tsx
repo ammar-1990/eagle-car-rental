@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import React from "react";
 
 import NoResult from "@/components/NoResult";
+import CarCard from "../cards/CarCard";
 
 type Props = {};
 
@@ -10,7 +11,11 @@ const CarsFeed = async (props: Props) => {
     orderBy: {
       createdAt: "desc",
     },
-    include: {
+    select: {
+      id:true,
+      slug:true,
+      image:true,
+      subTitle:true,
       carType: {
         select: {
           title: true,
@@ -27,9 +32,9 @@ const CarsFeed = async (props: Props) => {
         </div>
       )}
       {!!cars.length && (
-        <div className="min-h-[100px] flex gap-2 items-center flex-wrap mt-2">
+        <div className="min-h-[100px]  gap-[22px] flex flex-wrap mt-2">
           {cars.map((car) => (
-            <div key={car.id}>{car.carType.title}</div>
+            <CarCard key={car.id} car={car} />
           ))}
         </div>
       )}

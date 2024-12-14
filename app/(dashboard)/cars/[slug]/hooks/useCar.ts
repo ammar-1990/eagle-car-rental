@@ -12,7 +12,7 @@ import {
 import { Car } from "@prisma/client";
 import { errorToast, log } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import { updateCar } from "../actions/updateCar";
 import { createCar } from "../actions/createCar";
 import { toast } from "sonner";
@@ -43,6 +43,12 @@ export const useCar = (car: Car | null, extraOptions: ExtraOptionsType[]) => {
       disabled: car?.disabled ?? false,
     },
   });
+
+  const carSlug = form.watch('slug')
+  useEffect(()=>{
+    const newValue = carSlug.replace(' ','-')
+    form.setValue('slug',newValue)
+  },[carSlug,form])
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof carSchema>) {

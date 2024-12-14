@@ -45,7 +45,7 @@ const RenderLinkButton = (
 
   return (
     <Button {...rest}  className={cn("", className)} variant={variant ?? "site"} asChild>
-      <Link href={href}>
+      <Link className="flex items-center" href={href}>
         {Icon && Icon}
         {title}
       </Link>

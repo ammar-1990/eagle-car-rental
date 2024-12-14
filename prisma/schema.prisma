@@ -23,14 +23,14 @@ model CarType {
 }
 
 model Car {
-  id                 String         @id @default(uuid())
-  slug               String         @unique
+  id        String    @id @default(uuid())
+  slug      String    @unique
   //car info
-  carTypeId          String
-  carType            CarType        @relation(fields: [carTypeId], references: [id])
-  subTitle           String
-  location            Locations 
-  seats              Int
+  carTypeId String
+  carType   CarType   @relation(fields: [carTypeId], references: [id])
+  subTitle  String
+  location  Locations
+  seats     Int
 
   fuel               Fuel
   //apperance
@@ -41,7 +41,7 @@ model Car {
   extraOptions       ExtraOptions[]
   //rental details
   kmIncluded         Float
-  minimumRentalHours Int 
+  minimumRentalHours Int
   deposit            Float
 
   disabled  Boolean
@@ -50,11 +50,11 @@ model Car {
 }
 
 model ExtraOptions {
-  id    String @id @default(uuid())
-  title String
-  price Float
-  carId String
-  car   Car    @relation(fields: [carId], references: [id])
+  id        String   @id @default(uuid())
+  title     String
+  price     Float
+  carId     String
+  car       Car      @relation(fields: [carId], references: [id],onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -92,7 +92,6 @@ model Booking {
   updatedAt DateTime @updatedAt
 }
 
- 
 model BlogCategory {
   id    String @id @default(uuid())
   title String
@@ -121,6 +120,17 @@ model Faq {
   answer    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Settings {
+  id             String   @id @default("settings")
+  companyName    String
+  email          String
+  password       String
+  phoneNumber    String
+  whatsAppNumber String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 //enums

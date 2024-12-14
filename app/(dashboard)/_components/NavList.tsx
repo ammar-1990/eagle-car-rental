@@ -31,12 +31,6 @@ const NavList = (props: Props) => {
       isActive: pathname.startsWith("/cars"),
     },
     {
-      label: "Notifications",
-      href: "/notifications",
-      Icon: <Bell className={iconsClassName} />,
-      isActive: pathname.startsWith("/notifications"),
-    },
-    {
       label: "Blogs",
       href: "/blogs",
       Icon: <BookOpenText className={iconsClassName} />,

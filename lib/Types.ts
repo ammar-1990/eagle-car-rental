@@ -1,3 +1,5 @@
+import { Car } from "@prisma/client";
+
 export const SEATS = [2, 5, 7, 8];
 export const SEATS_CONST = [2, 5, 7, 8] as const;
 export const SEATS_MAP: Record<(typeof SEATS_CONST)[number], string> = {
@@ -23,3 +25,10 @@ export const LOCATIONS_MAP: Record<(typeof LOCATIONS_CONST)[number], string> = {
   LOS_ANGELES: "los angeles",
   ORLANDO: "orlando",
 };
+
+export type CarCardWithCarType = {
+  id:string,
+  image:string,
+  subTitle:string,
+  slug:string,
+  carType:{title:string}}

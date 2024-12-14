@@ -18,10 +18,10 @@ const BlogCard = ({ blog }: Props) => {
         aspect="video"
         className="rounded-md overflow-hidden"
       />
-      <h2 className="capitalize font-semibold font-lg">{blog.title}</h2>
+      <h2 className="capitalize font-semibold font-lg line-clamp-1">{blog.title}</h2>
       <p className="line-clamp-3 first-letter:capitalize text-muted-foreground text-xs">{blog.seoDescription}</p>
-      <p className="text-right text-xs font-semibold text-muted-foreground">{format(new Date(blog.createdAt),'MMMM d, yyyy, hh:mm a')}</p>
-      <div className="flex gap-2">
+      <p className="text-right text-xs font-semibold text-muted-foreground mt-auto">{format(new Date(blog.createdAt),'MMMM d, yyyy, hh:mm a')}</p>
+      <div className="flex gap-2 mt-auto">
         <SuperButton
           className="flex-1"
           buttonType="linkButton"
