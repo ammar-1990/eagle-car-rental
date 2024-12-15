@@ -18,6 +18,7 @@ import { createCar } from "../actions/createCar";
 import { toast } from "sonner";
 
 export const useCar = (car: Car | null, extraOptions: ExtraOptionsType[]) => {
+  console.log("EXTRA_OPTIONS",extraOptions)
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof carSchema>>({

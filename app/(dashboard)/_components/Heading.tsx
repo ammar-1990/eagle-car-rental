@@ -8,7 +8,7 @@ type Props = {
 
 const Heading = ({className,title}: Props) => {
   return (
-    <p className={cn('font-[500] text-[22px] tracking-[0.5px] text-[#1F384C]',className)}>{title}</p>
+    <p className={cn('font-[500] text-[22px] tracking-[0.5px] text-[#1F384C] capitalize',className)}>{title}</p>
   )
 }
 
