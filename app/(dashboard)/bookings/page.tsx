@@ -3,7 +3,8 @@ import Heading from "../_components/Heading";
 import { wait } from "@/lib/utils";
  
 import { Skeleton } from "@/components/ui/skeleton";
-import BookingsFeed from "./_components/feeds/bookingsFeed";
+import BookingsFeed from "./_components/feeds/BookingsFeed";
+ 
 
 type Props = {};
 
