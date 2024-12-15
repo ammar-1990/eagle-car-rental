@@ -54,13 +54,14 @@ model ExtraOptions {
   title     String
   price     Float
   carId     String
-  car       Car      @relation(fields: [carId], references: [id],onDelete: Cascade)
+  car       Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Booking {
   id                   String        @id @default(uuid())
+  bookingID            String        @unique
   //driver detais
   email                String
   firstName            String
@@ -76,13 +77,27 @@ model Booking {
   City                 String
   State                String
   Zipcode              String
-  isBusinessBooking    Boolean
   //required documents
   license              String
   insurance            String
   returnFlight         String
+  //date
+  startDate            DateTime
+  endDate              DateTime
+  //is business
+  business             Boolean?
+  companyName          String?
+  companyVat           String?
+  //location
+  pickupLocation       String
+  dropoffLocation      String?
+  //prices
+  price                Float
+  totalAmount          Float
   paymentMethod        PaymentMethod @default(CARD)
-
+  extraOptions         Json
+  //status
+  status               BookingStatus @default(PENDING)
   terms Boolean
 
   carId String
@@ -150,4 +165,9 @@ enum Locations {
   LOS_ANGELES
   LAS_VEGAS
   ORLANDO
+}
+
+enum BookingStatus {
+  PAID
+  PENDING
 }

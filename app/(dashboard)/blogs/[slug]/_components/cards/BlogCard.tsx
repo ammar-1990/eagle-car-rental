@@ -2,7 +2,7 @@
 import ImageComponent from "@/components/ImageComponent";
 import SuperButton from "@/components/SuperButton";
 import { Blog } from "@prisma/client";
-import { Delete, Edit } from "lucide-react";
+import { Delete, Edit, Trash } from "lucide-react";
 import {format} from 'date-fns'
 import React from "react";
 import { deleteBlog } from "../../actions/deleteBlog";
@@ -35,7 +35,7 @@ const BlogCard = ({ blog }: Props) => {
           variant="destructive"
           buttonType="modalButton"
           modalInputs={{ modal: "delete", function: () => deleteBlog(blog.id) }}
-          Icon={<Delete className="icon" />}
+          Icon={<Trash className="icon" />}
         />
       </div>
     </article>

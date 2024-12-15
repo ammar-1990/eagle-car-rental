@@ -1,4 +1,7 @@
-import { Car } from "@prisma/client";
+
+
+
+import { $Enums, Car } from "@prisma/client";
 
 export const SEATS = [2, 5, 7, 8];
 export const SEATS_CONST = [2, 5, 7, 8] as const;
@@ -26,9 +29,35 @@ export const LOCATIONS_MAP: Record<(typeof LOCATIONS_CONST)[number], string> = {
   ORLANDO: "orlando",
 };
 
+
+export const  BOOKING_STATUS = ['PENDING','PAID']
+export const BOOKING_STATUS_CONST = ['PENDING','PAID'] as const;
+export const BOOKING_STATUS_MAP:Record<typeof BOOKING_STATUS_CONST[number],string> = {
+  'PENDING':'pending',
+  'PAID':'paid'
+}
+export const BOOKING_STATUS_MAP_CLASSNAME:Record<typeof BOOKING_STATUS_CONST[number],string> ={
+  'PAID':'bg-[#ECFDF3] text-green-700',
+  'PENDING':'bg-yellow-50 text-yellow-700'
+}
+
 export type CarCardWithCarType = {
   id:string,
   image:string,
   subTitle:string,
   slug:string,
   carType:{title:string}}
+
+
+  export type BookingTable  = {
+    status: $Enums.BookingStatus;
+    email: string;
+    createdAt: Date;
+    bookingID: string;
+    firstName: string;
+    lastName: string;
+    totalAmount: number;
+}
+
+
+

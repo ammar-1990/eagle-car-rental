@@ -42,3 +42,15 @@ export const throwCustomError = (message: string): never => {
 };
 
 export const errorToast = (message:string = "Something went wrong")=>toast.error(message)
+
+
+export function formatToDollar(value: number): string {
+  if (isNaN(value)) {
+    throw new Error("Invalid number input");
+  }
+
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(value);
+}
