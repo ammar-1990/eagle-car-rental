@@ -41,6 +41,9 @@ export const BOOKING_STATUS_MAP_CLASSNAME:Record<typeof BOOKING_STATUS_CONST[num
   'PENDING':'bg-yellow-50 text-yellow-700'
 }
 
+
+export const TAKE_BOOKINGS = 2
+
 export type CarCardWithCarType = {
   id:string,
   image:string,

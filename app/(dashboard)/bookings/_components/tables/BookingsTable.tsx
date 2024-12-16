@@ -20,56 +20,61 @@ import {
 import NoResult from "@/components/NoResult";
 import { cn, formatToDollar } from "@/lib/utils";
 import { Check } from "lucide-react";
+import Badge from "@/components/Badge";
+import Pagination from "@/components/Pagination";
 
-type Props = { bookings: BookingTable[] };
+type Props = { bookings: BookingTable[]; page: string; bookingsCount: number };
 
-const BookingsTable = ({ bookings }: Props) => {
+const BookingsTable = ({ bookings, page, bookingsCount }: Props) => {
   return (
     <div>
-      {!bookings.length && (
+      {!bookingsCount && (
         <NoResult title="No Bookings" description="You Have No Bookings Yet" />
       )}
 
-      {!!bookings.length && (
-        <div className="border rounded-md overflow-hidden">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="">Booking Number</TableHead>
-                <TableHead>Created At</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead className="">Email Address</TableHead>
-                <TableHead className="">Status</TableHead>
-                <TableHead className="">Total Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody className="text-[#475467] text-[14px]">
-              {bookings.map((booking) => (
-                <TableRow key={booking.bookingID}>
-                  <TableCell className="">{booking.bookingID}</TableCell>
-                  <TableCell>
-                    {format(new Date(booking.createdAt), "dd/MM/yyyy")}
-                  </TableCell>
-                  <TableCell className="text-[#101828] font-[500] capitalize">
-                    {booking.firstName} {booking.lastName}
-                  </TableCell>
-                  <TableCell className="">{booking.email}</TableCell>
-                  <TableCell className="">
-                    <span
-                      className={cn(
-                        "capitalize py-0.5 px-3 rounded-full text-[12px] font-[500] flex items-center w-fit",
-                        BOOKING_STATUS_MAP_CLASSNAME[booking.status]
-                      )}
-                    >
-                      {booking.status === 'PAID' && <Check className="mr-1 h-3 w-3 text-green-700" />}
-                      {BOOKING_STATUS_MAP[booking.status]}
-                    </span>
-                  </TableCell>
-                  <TableCell className="">{formatToDollar(booking.totalAmount)}</TableCell>
+      {!!bookingsCount && (
+        <div>
+          <div className="border rounded-md overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="">Booking Number</TableHead>
+                  <TableHead>Created At</TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead className="">Email Address</TableHead>
+                  <TableHead className="">Status</TableHead>
+                  <TableHead className="">Total Amount</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody className="text-[#475467] text-[14px]">
+                {bookings.map((booking) => (
+                  <TableRow key={booking.bookingID}>
+                    <TableCell className="">{booking.bookingID}</TableCell>
+                    <TableCell>
+                      {format(new Date(booking.createdAt), "dd/MM/yyyy")}
+                    </TableCell>
+                    <TableCell className="text-[#101828] font-[500] capitalize">
+                      {booking.firstName} {booking.lastName}
+                    </TableCell>
+                    <TableCell className="">{booking.email}</TableCell>
+                    <TableCell className="">
+                      <Badge status={booking.status} />
+                    </TableCell>
+                    <TableCell className="">
+                      {formatToDollar(booking.totalAmount)}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="mt-4">
+            <Pagination
+              count={bookingsCount}
+              href="/bookings"
+              page={Number(page)}
+            />
+          </div>
         </div>
       )}
     </div>
