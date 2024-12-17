@@ -4,12 +4,16 @@ import BookingsTable from '../tables/BookingsTable'
 import { TAKE_BOOKINGS } from '@/lib/Types'
 
 type Props = {
-    page:string
+    page:string,
+    email:string | undefined
 }
 
-const BookingsFeed = async({page}: Props) => {
+const BookingsFeed = async({page,email}: Props) => {
     const pageNumber = Number(page)
     const bookingsRes =  prisma.booking.findMany({
+        ...(email && {where:{
+            email
+        }}),
         select:{
             bookingID:true,
             createdAt:true,
@@ -26,13 +30,17 @@ const BookingsFeed = async({page}: Props) => {
         }
     })
 
-    const bookingsCountRes = prisma.booking.count()
+    const bookingsCountRes = prisma.booking.count({
+        ...(email && {where:{
+            email
+        }})
+    })
 
     const [bookings, bookingsCount] =await  Promise.all([bookingsRes, bookingsCountRes])
     console.log("Page::",page)
     console.log("Bookings Count::",bookingsCount)
   return (
-   <BookingsTable page={page} bookings={bookings} bookingsCount={bookingsCount} />
+   <BookingsTable email={email} bookings={bookings} bookingsCount={bookingsCount} />
   )
 }
 
