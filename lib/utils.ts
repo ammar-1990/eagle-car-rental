@@ -2,6 +2,8 @@ import { clsx, type ClassValue } from "clsx";
 import { toast } from "sonner";
 import { twMerge } from "tailwind-merge";
 import CustomError from "./CustomError";
+import { cache } from "react";
+import prisma from "./prisma";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -54,3 +56,12 @@ export function formatToDollar(value: number): string {
     currency: "USD",
   }).format(value);
 }
+
+
+export const getCarsTypes =  cache(async()=>{
+  const carTypes = await prisma.carType.findMany({orderBy:{
+    createdAt:'desc'
+  }})
+
+  return carTypes
+})

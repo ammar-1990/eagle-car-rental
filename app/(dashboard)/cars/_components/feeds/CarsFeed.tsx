@@ -4,18 +4,22 @@ import React from "react";
 import NoResult from "@/components/NoResult";
 import CarCard from "../cards/CarCard";
 
-type Props = {};
+type Props = {
+  carType: string | undefined;
+  carTypeLabel:string | undefined
+};
 
-const CarsFeed = async (props: Props) => {
+const CarsFeed = async ({ carType, carTypeLabel }: Props) => {
   const cars = await prisma.car.findMany({
+    ...(carType && { where: { carTypeId: carType } }),
     orderBy: {
       createdAt: "desc",
     },
     select: {
-      id:true,
-      slug:true,
-      image:true,
-      subTitle:true,
+      id: true,
+      slug: true,
+      image: true,
+      subTitle: true,
       carType: {
         select: {
           title: true,
@@ -28,7 +32,7 @@ const CarsFeed = async (props: Props) => {
     <div>
       {!cars.length && (
         <div className="mt-2">
-          <NoResult title="No Cars" description="Create Cars To Show Here" />
+          <NoResult title="No Cars" description={!carType ?"Create Cars To Show Here" : `No Cars Found for "${carTypeLabel}" Type`} />
         </div>
       )}
       {!!cars.length && (

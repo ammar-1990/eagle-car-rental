@@ -22,7 +22,7 @@ const BookingsPage = async ({searchParams}: Props) => {
     <div>
       <div className="flex justify-between w-full items-center">
       <Heading title="Bookings" />
-      <Search searchParam="email" placeholder="Search By Email"/>
+      <Search  inputType={'input'} searchParam="email" placeholder="Search By Email"/>
       </div>
   
       {/* booking feed */}
