@@ -71,17 +71,13 @@ const Search = <T extends { [key: string]: string }>({
   const [pendingReset, startTransitionReset] = useTransition();
 
   const handleSearch = () => {
+    if (!search) return;
     // Create a copy of the current search params
     const params = new URLSearchParams(searchParams);
-    if (search) {
-      // Set or update the specific search parameter
-      params.set(searchParam, search);
-      //reset page to 1
-      params.set("page", "1");
-    } else {
-      // Remove the search parameter if the input is empty
-      params.delete(searchParam);
-    }
+    // Set or update the specific search parameter
+    params.set(searchParam, search);
+    //reset page to 1
+    params.set("page", "1");
 
     startTransitionSearch(() => {
       router.push(`?${params.toString()}`, { scroll: false });
@@ -117,11 +113,13 @@ const Search = <T extends { [key: string]: string }>({
               setSearch(value);
             }}
           >
-            <SelectTrigger className={cn("w-[180px] capitalize ",search ? 'text-black' : 'text-muted-foreground')}>
-              <SelectValue
-                className=""
-                placeholder={placeholder}
-              />
+            <SelectTrigger
+              className={cn(
+                "w-[180px] capitalize ",
+                search ? "text-black" : "text-muted-foreground"
+              )}
+            >
+              <SelectValue className="" placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
               {processedItems.length ? (
