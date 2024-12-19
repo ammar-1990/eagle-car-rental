@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import ModalButton from "../../../components/SuperButton";
 
 import SuperButton from "../../../components/SuperButton";
-import { PlusCircle } from "lucide-react";
+import { Plus, PlusCircle } from "lucide-react";
 
 type Props = {};
 
@@ -21,9 +21,11 @@ const BlogsPage = async (props: Props) => {
         <div className="flex items-center gap-8 justify-between">
           <Heading title="Categories" className="text-md" />
           <SuperButton
+            variant="siteSecondary"
             buttonType="modalButton"
             title="Category"
-            Icon={<PlusCircle className="icon" />}
+            Icon={<Plus className="icon" />}
+            className="siteSecondary"
             modalInputs={{ modal: "category", data: undefined }}
           />
         </div>
@@ -41,10 +43,12 @@ const BlogsPage = async (props: Props) => {
         <div className="flex items-center gap-8 justify-between">
           <Heading title="Blogs" className="text-md" />
           <SuperButton
+            variant="siteSecondary"
             buttonType="linkButton"
             title="Blog"
             href="/blogs/new"
-            Icon={<PlusCircle className="icon" />}
+            Icon={<Plus className="icon" />}
+            className="siteSecondary"
           />
         </div>
         <div className="mt-2">

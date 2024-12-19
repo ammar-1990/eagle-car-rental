@@ -80,7 +80,11 @@ body {
 
 
 .icon {
-  @apply w-[12px] h-[12px]
+  @apply w-8 h-8
+}
+
+.siteSecondary{
+  @apply w-fit h-fit px-3 py-1
 }
 
 

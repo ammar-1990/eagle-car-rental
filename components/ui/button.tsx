@@ -11,6 +11,7 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         site:'bg-site-primary text-white hover:bg-site-primary/90',
+        siteSecondary:'bg-white text-site-primary  hover:bg-site-primary/5 text-[10px] w-fit border-site-primary border h-fit ',
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:

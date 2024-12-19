@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import Heading from "../_components/Heading";
 import { getCarsTypes, wait } from "@/lib/utils";
 import SuperButton from "@/components/SuperButton";
-import { PlusCircle } from "lucide-react";
+import { Plus, PlusCircle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import CarTypeFeed from "./_components/feeds/CarTypeFeed";
 import CarsFeed from "./_components/feeds/CarsFeed";
@@ -41,10 +41,12 @@ const CarsPage = async ({ searchParams }: Props) => {
         <div className="flex items-center gap-8 justify-between">
           <Heading title="Car Type" className="text-md" />
           <SuperButton
+            variant="siteSecondary"
             buttonType="modalButton"
             title="Car Type"
-            Icon={<PlusCircle className="icon" />}
+            Icon={<Plus className="icon" />}
             modalInputs={{ modal: "carType", data: undefined }}
+            className="siteSecondary"
           />
         </div>
         <Suspense
@@ -60,9 +62,11 @@ const CarsPage = async ({ searchParams }: Props) => {
         <div className="flex items-center gap-8 justify-between">
           <Heading title="Cars" className="text-md" />
           <SuperButton
+            variant="siteSecondary"
             buttonType="linkButton"
             title="Create Car"
-            Icon={<PlusCircle className="icon" />}
+            Icon={<Plus className="icon" />}
+            className="siteSecondary"
             href="/cars/new"
           />
         </div>
