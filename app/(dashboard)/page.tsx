@@ -1,9 +1,9 @@
 import { wait } from "@/lib/utils";
 import Heading from "./_components/Heading";
 
- 
+ type Props = {}
 
-export default async function HoMainPageme() {
+export default async function HomeMainPage(props:Props) {
 
  
   return (

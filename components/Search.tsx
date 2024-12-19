@@ -13,10 +13,12 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectLabel,
 } from "@/components/ui/select";
 
 type Props<T> = {
-    className?:string,
+  className?: string;
+  label: string;
   placeholder?: string;
   searchParam: string;
   searchButtonClassName?: string;
@@ -31,6 +33,7 @@ type Props<T> = {
 );
 
 const Search = <T extends { [key: string]: string }>({
+  label,
   placeholder = "Search",
   searchParam,
   className,
@@ -52,7 +55,7 @@ const Search = <T extends { [key: string]: string }>({
   };
 
   useEffect(() => {
-  if(inputType !=='select') return
+    if (inputType !== "select") return;
     const processItems = async () => {
       const results = await Promise.all(values.map((item) => renderItem(item)));
       setProcessedItems(results);
@@ -68,7 +71,6 @@ const Search = <T extends { [key: string]: string }>({
   const [pendingReset, startTransitionReset] = useTransition();
 
   const handleSearch = () => {
- 
     // Create a copy of the current search params
     const params = new URLSearchParams(searchParams);
     if (search) {
@@ -97,62 +99,79 @@ const Search = <T extends { [key: string]: string }>({
   };
 
   return (
-    <div className={cn("flex items-center gap-1",className)}>
-      {inputType === "input" ? (
-        <Input
-          placeholder={placeholder}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      ) : (
-        <Select
-        value={search}
-          onValueChange={(value) => {
-            console.log(value);
-            setSearch(value);
-          }}
+    <div className="felx flex-col">
+      <p className="text-[10px] text-muted-foreground capitalize">{label}</p>
+      <div className={cn("flex items-center gap-1", className)}>
+        {inputType === "input" ? (
+          <Input
+            className="placeholder:text-md"
+            placeholder={placeholder}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        ) : (
+          <Select
+            value={search}
+            onValueChange={(value) => {
+              console.log(value);
+              setSearch(value);
+            }}
+          >
+            <SelectTrigger className={cn("w-[180px] capitalize ",search ? 'text-black' : 'text-muted-foreground')}>
+              <SelectValue
+                className=""
+                placeholder={placeholder}
+              />
+            </SelectTrigger>
+            <SelectContent>
+              {processedItems.length ? (
+                processedItems.map(({ label, value }, index) => {
+                  return (
+                    <SelectItem
+                      className="cursor-pointer capitalize"
+                      key={index}
+                      value={value}
+                    >
+                      {label}
+                    </SelectItem>
+                  );
+                })
+              ) : (
+                <span className="text-xs text-muted-foreground capitalize text-center block mx-auto w-fit select-none p-3">
+                  No Items
+                </span>
+              )}
+            </SelectContent>
+          </Select>
+        )}
+        <Button
+          type="button"
+          disabled={pendingSearch}
+          onClick={handleSearch}
+          variant={"site"}
+          className={cn("disabled:opacity-35", searchButtonClassName)}
         >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder={placeholder} />
-          </SelectTrigger>
-          <SelectContent>
-            {processedItems.map(({ label, value }, index) => {
-              return (
-                <SelectItem className="cursor-pointer" key={index} value={value}>
-                  {label}
-                </SelectItem>
-              );
-            })}
-          </SelectContent>
-        </Select>
-      )}
-      <Button
-        type="button"
-        disabled={pendingSearch}
-        onClick={handleSearch}
-        variant={"site"}
-        className={cn("disabled:opacity-35", searchButtonClassName)}
-      >
-        {pendingSearch ? (
-          <Loader2 className="w-8 h-8  animate-spin" />
-        ) : (
-          <SearchIcon className="icon" />
-        )}
-      </Button>
+          {pendingSearch ? (
+            <Loader2 className="w-8 h-8  animate-spin" />
+          ) : (
+            <SearchIcon className="icon" />
+          )}
+        </Button>
 
-      <Button
-        type="button"
-        disabled={pendingReset || !paramsValue}
-        onClick={handleReset}
-        variant={"secondary"}
-        className={cn("disabled:opacity-35", searchButtonClassName)}
-      >
-        {pendingReset ? (
-          <Loader2 className="w-8 h-8  animate-spin" />
-        ) : (
-          <RefreshCcw className="icon" />
-        )}
-      </Button>
+        <Button
+          type="button"
+          disabled={pendingReset || !paramsValue}
+          onClick={handleReset}
+          variant={"secondary"}
+          className={cn("disabled:opacity-35", searchButtonClassName)}
+        >
+          {pendingReset ? (
+            <Loader2 className="w-8 h-8  animate-spin" />
+          ) : (
+            <RefreshCcw className="icon" />
+          )}
+        </Button>
+      </div>
     </div>
   );
 };

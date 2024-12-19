@@ -11,6 +11,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const wait = async (time: number = 1500) =>
   new Promise((r) => setTimeout(r, time));
+
 export function log({
   shouldLog = true,
   messages,
