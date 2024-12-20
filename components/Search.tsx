@@ -21,6 +21,7 @@ type Props<T> = {
   label: string;
   placeholder?: string;
   searchParam: string;
+  inputClassName?:String,
   searchButtonClassName?: string;
   resetButtonClassName?: string;
 } & (
@@ -37,6 +38,7 @@ const Search = <T extends { [key: string]: string }>({
   placeholder = "Search",
   searchParam,
   className,
+  inputClassName,
   searchButtonClassName,
   resetButtonClassName,
   inputType,
@@ -100,7 +102,7 @@ const Search = <T extends { [key: string]: string }>({
       <div className={cn("flex items-center gap-1", className)}>
         {inputType === "input" ? (
           <Input
-            className="placeholder:text-md"
+            className={cn("placeholder:text-md",inputClassName)}
             placeholder={placeholder}
             value={search}
             onChange={(e) => setSearch(e.target.value)}

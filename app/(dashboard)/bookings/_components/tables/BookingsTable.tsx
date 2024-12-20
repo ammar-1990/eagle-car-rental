@@ -23,13 +23,13 @@ import { Check } from "lucide-react";
 import Badge from "@/components/Badge";
 import Pagination from "@/components/Pagination";
 
-type Props = { bookings: BookingTable[];  bookingsCount: number,email:string | undefined };
+type Props = { bookings: BookingTable[];  bookingsCount: number,q:string | undefined };
 
-const BookingsTable = ({ bookings, bookingsCount,email }: Props) => {
+const BookingsTable = ({ bookings, bookingsCount,q }: Props) => {
   return (
     <div>
       {!bookingsCount && (
-        <NoResult title="No Bookings" description={email ? `No bookings For This Email Address "${email}" ` : 'No Bookings Yet'} />
+        <NoResult title="No Bookings" description={q ? `No bookings For This Query  "${q}" ` : 'No Bookings Yet'} />
       )}
 
       {!!bookingsCount && (

@@ -17,7 +17,7 @@ import SuperButton from "@/components/SuperButton";
 import FormWrapper from "@/components/FormWrapper";
 import InputField from "@/components/InputField";
 import PhoneField from "@/components/PhoneField";
-import { Edit, PlusCircle } from "lucide-react";
+import { SaveIcon } from "lucide-react";
 type Props = { settings: Settings | null };
 
 const SettingsForm = ({ settings }: Props) => {
@@ -69,13 +69,8 @@ const SettingsForm = ({ settings }: Props) => {
           type="submit"
           buttonType="loadingButton"
           loading={pending}
-          title={settings ? "Update" : "Create"}
-          Icon={
-            settings ? (
-              <Edit className="icon" />
-            ) : (
-              <PlusCircle className="icon" />
-            )
+          title={"Save"}
+          Icon={<SaveIcon className="icon"  />
           }
         />
       </form>

@@ -169,42 +169,24 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
                         );
                       })}
                     </div>
-                    {/* Weeks */}
-                    <div className="flex flex-col gap-2">
-                      {form.watch("pricing.weeks").map((_, index) => {
-                        const week = index + 1;
-                        const placeholder = `${week} Week${
-                          week >= 2 ? "s" : ""
-                        }`;
-                        return (
-                          <InputField
-                            key={`Day-${index}`}
-                            label={placeholder}
+                    {/* Week */}
+                  
+                          <InputField                      
+                            label={"Week"}
                             form={form}
-                            name={`pricing.weeks.${index}`}
-                            placeholder={`Enter Price for ${placeholder}`}
+                            name={`pricing.week`}
+                            placeholder={`Enter Price for 1 Week`}
                           />
-                        );
-                      })}
-                    </div>
-                    {/* Months */}
-                    <div className="flex flex-col gap-2">
-                      {form.watch("pricing.months").map((_, index) => {
-                        const month = index + 1;
-                        const placeholder = `${month} Month${
-                          month >= 2 ? "s" : ""
-                        }`;
-                        return (
-                          <InputField
-                            key={`Day-${index}`}
-                            label={placeholder}
+                
+                 
+                    {/* Month */}
+                          <InputField                
+                            label={"Month"}
                             form={form}
-                            name={`pricing.months.${index}`}
-                            placeholder={`Enter Price for ${placeholder}`}
+                            name={`pricing.month`}
+                            placeholder={`Enter Price for 1 Month`}
                           />
-                        );
-                      })}
-                    </div>
+                    
                   </div>
                 </FormControl>
               </FormItem>

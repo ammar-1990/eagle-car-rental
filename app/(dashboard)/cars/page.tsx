@@ -24,8 +24,8 @@ const CarsPage = async ({ searchParams }: Props) => {
     <div>
       <div className="flex justify-between">
         <Heading title="Cars" />
-        <Search
-          label="Search By Car Type"
+        <Search placeholder="Select Car Type"
+          label="Car Type"
           searchParam="carType"
           inputType="select"
           renderItem={async (item) => {

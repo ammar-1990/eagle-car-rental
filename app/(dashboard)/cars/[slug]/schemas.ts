@@ -14,8 +14,8 @@ export const extraOptionsSchema = z.object({
 export const pricingSchema = z.object({
     hour:numberSchema,
     days:z.array(numberSchema).length(6,"Enter 6 Days"),
-    weeks:z.array(numberSchema).length(3,"Enter 3 Weeks"),
-    months:z.array(numberSchema).length(6,"Enter 6 Months")
+    week:numberSchema,
+    month:numberSchema
 })
 
 export const carSchema = z.object({

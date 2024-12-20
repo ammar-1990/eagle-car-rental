@@ -34,8 +34,8 @@ export const useCar = (car: Car | null, extraOptions: ExtraOptionsType[]) => {
       pricing: (car?.pricing as unknown as PricingType) ?? {
         hour: "",
         days: Array(6).fill(""),
-        weeks: Array(3).fill(""),
-        months: Array(6).fill(""),
+      week:"",
+      month:""
       },
       extraOptions: extraOptions,
       kmIncluded: `${car?.kmIncluded ?? ""}`,
