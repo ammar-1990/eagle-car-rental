@@ -139,8 +139,8 @@ model Faq {
 
 model Settings {
   id             String   @id @default("settings")
-  companyName    String
-  email          String
+  companyName    String   
+  email          String 
   password       String
   phoneNumber    String
   whatsAppNumber String

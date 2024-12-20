@@ -41,12 +41,20 @@ const SettingsForm = ({ settings }: Props) => {
             label="Email"
             placeholder="Enter Email"
           />
+          {!!settings && <InputField
+            inputStyles="max-w-[357px]"
+            form={form}
+            name={"oldPassword"}
+            label="Old Password"
+            placeholder="Enter Your Old Password"
+            type="password"
+          />}
           <InputField
             inputStyles="max-w-[357px]"
             form={form}
             name={"password"}
-            label="Password"
-            placeholder="Enter Password"
+            label={settings ? "New Password" :"Password"}
+            placeholder={settings ? 'Enter New Password' : `Enter Password`}
             type="password"
           />
           <PhoneField

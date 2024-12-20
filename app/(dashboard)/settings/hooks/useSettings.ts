@@ -18,9 +18,10 @@ export const useSettings = (settings:Settings | null)=>{
     const form = useForm<z.infer<typeof settingsSchema>>({
         resolver: zodResolver(settingsSchema),
         defaultValues: {
-            companyName:settings?.companyName ?? '',
+            companyName:settings?.companyName ?? 'Eagle Car Rental',
             email:settings?.email ?? '',
-            password:settings?.password ?? '',
+            oldPassword:'',
+            password: '',
             phoneNumber:settings?.phoneNumber ?? '',
             whatsAppNumber:settings?.whatsAppNumber ?? ''
         },
@@ -38,6 +39,8 @@ export const useSettings = (settings:Settings | null)=>{
             }else{
               toast.success(res.message)
               router.refresh()
+              form.setValue('password','')
+              form.setValue('oldPassword','')
             }
             
            } catch (error) {

@@ -14,6 +14,7 @@ const numberSchema = z
 export const settingsSchema = z.object({
   companyName: requiredStringSchema,
   email: requiredStringSchema.email('Enter Valid Email'),
+  oldPassword:z.string().optional(),
   password: z
     .string()
     .min(8, "At Least 8 Characters")

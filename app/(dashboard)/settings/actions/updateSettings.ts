@@ -17,15 +17,26 @@ export const updateSettings = async (
     const validData = settingsSchema.safeParse(settings);
     if (!validData.success) return throwCustomError("Input Error");
 
+    const {oldPassword, ...rest} = validData.data
+
+    const existSettings =  await prisma.settings.findUnique({
+      where:{
+          id:'settings'
+      }})
+
+      if(existSettings){
+        if(oldPassword !==existSettings.password) return throwCustomError('Old Password Is Not Correct')
+      }
+
     await prisma.settings.upsert({
         where:{
             id:'settings'
         },
         create:{
-           ...validData.data
+           ...rest
         },
         update:{
-          ...validData.data
+          ...rest
         }
 
     })
