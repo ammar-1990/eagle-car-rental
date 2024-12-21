@@ -8,35 +8,43 @@ import { throwCustomError } from "@/lib/utils";
 import prisma from "@/lib/prisma";
 
 export const updateSettings = async (
-  settings: z.infer<typeof settingsSchema>
+  settings: any
 ): Promise<{ success: boolean; message: string }> => {
   try {
     const session = await auth();
     if (!session) return throwCustomError("Unauthorized");
 
-    const validData = settingsSchema.safeParse(settings);
-    if (!validData.success) return throwCustomError("Input Error");
 
-    const {oldPassword, ...rest} = validData.data
 
     const existSettings =  await prisma.settings.findUnique({
       where:{
           id:'settings'
       }})
 
-      if(existSettings){
+      const zodSettingsSchema = settingsSchema(!!existSettings)
+
+      const validData = zodSettingsSchema.safeParse(settings);
+      if (!validData.success) return throwCustomError("Input Error");
+  
+      const {oldPassword, ...rest} = validData.data
+
+      if(existSettings && rest.password){
         if(oldPassword !==existSettings.password) return throwCustomError('Old Password Is Not Correct')
       }
 
+      const {password, ...remainingData} = rest
     await prisma.settings.upsert({
         where:{
             id:'settings'
         },
         create:{
-           ...rest
+           ...remainingData,
+          password:password!
         },
         update:{
-          ...rest
+          ...remainingData,
+          ...(password && {password})
+
         }
 
     })

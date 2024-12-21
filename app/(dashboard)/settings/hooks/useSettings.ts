@@ -3,20 +3,21 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { settingsSchema } from "../schemas"
+ 
 import { Settings } from "@prisma/client"
 import { useRouter } from "next/navigation"
 import { useTransition } from "react"
 import { errorToast } from "@/lib/utils"
 import { updateSettings } from "../actions/updateSettings"
 import { toast } from "sonner"
+import { settingsSchema } from "../schemas"
 
 export const useSettings = (settings:Settings | null)=>{
-    
+    const zodSettingsSchema =settingsSchema(!!settings)
     const router = useRouter()
     const [pending, startTransition] = useTransition()
-    const form = useForm<z.infer<typeof settingsSchema>>({
-        resolver: zodResolver(settingsSchema),
+    const form = useForm<z.infer<typeof zodSettingsSchema>>({
+        resolver: zodResolver(zodSettingsSchema),
         defaultValues: {
             companyName:settings?.companyName ?? 'Eagle Car Rental',
             email:settings?.email ?? '',
@@ -28,7 +29,7 @@ export const useSettings = (settings:Settings | null)=>{
       })
      
       // 2. Define a submit handler.
-     async function onSubmit(values: z.infer<typeof settingsSchema>) {
+     async function onSubmit(values: z.infer<typeof zodSettingsSchema>) {
          startTransition(async()=>{
           
            try {  
