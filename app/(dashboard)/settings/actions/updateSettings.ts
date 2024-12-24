@@ -8,7 +8,7 @@ import { throwCustomError } from "@/lib/utils";
 import prisma from "@/lib/prisma";
 
 export const updateSettings = async (
-  settings: any
+  settings: unknown
 ): Promise<{ success: boolean; message: string }> => {
   try {
     const session = await auth();

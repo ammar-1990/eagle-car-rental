@@ -21,7 +21,7 @@ type Props<T> = {
   label: string;
   placeholder?: string;
   searchParam: string;
-  inputClassName?:String,
+  inputClassName?:string,
   searchButtonClassName?: string;
   resetButtonClassName?: string;
 } & (
