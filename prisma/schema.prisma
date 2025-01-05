@@ -170,4 +170,5 @@ enum Locations {
 enum BookingStatus {
   PAID
   PENDING
+  CANCELLED
 }

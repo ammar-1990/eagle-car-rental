@@ -11,6 +11,8 @@ import { Plus, PlusCircle } from "lucide-react";
 
 type Props = {};
 
+export const revalidate = 0
+
 const BlogsPage = async (props: Props) => {
   return (
     <div>

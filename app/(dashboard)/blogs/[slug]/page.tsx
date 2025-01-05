@@ -36,7 +36,13 @@ const BlogPage = async ({ params }: Props) => {
           title="No Categories"
           description="Please Create Categories First"
         />
-        <SuperButton className="mt-2" buttonType="linkButton" href={"/blogs"} title="Back" Icon={<ChevronLeft className="icon" />} />
+        <SuperButton
+          className="mt-2"
+          buttonType="linkButton"
+          href={"/blogs"}
+          title="Back"
+          Icon={<ChevronLeft className="icon" />}
+        />
       </div>
     );
   }

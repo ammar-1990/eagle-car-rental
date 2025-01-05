@@ -87,17 +87,15 @@ const prices = z.object({
 });
 
 const status = z.object({
-    status:z.nativeEnum(BookingStatus),
-    terms:z.boolean()
-})
-
-export const bookingSchema = z.object({
-    drivingDetails,
-    billingAddress,
-    requiredDocuments,
-    date,
-    isBusiness,
-    location,
-    prices,
-    status
+  status: z.nativeEnum(BookingStatus),
+  terms: z.boolean(),
 });
+
+export const bookingSchema = drivingDetails
+  .and(billingAddress)
+  .and(requiredDocuments)
+  .and(date)
+  .and(isBusiness)
+  .and(location)
+  .and(prices)
+  .and(status);

@@ -30,15 +30,17 @@ export const LOCATIONS_MAP: Record<(typeof LOCATIONS_CONST)[number], string> = {
 };
 
 
-export const  BOOKING_STATUS = ['PENDING','PAID']
-export const BOOKING_STATUS_CONST = ['PENDING','PAID'] as const;
+export const  BOOKING_STATUS = ['PENDING','PAID','CANCELLED']
+export const BOOKING_STATUS_CONST = ['PENDING','PAID','CANCELLED'] as const;
 export const BOOKING_STATUS_MAP:Record<typeof BOOKING_STATUS_CONST[number],string> = {
   'PENDING':'pending',
-  'PAID':'paid'
+  'PAID':'paid',
+  'CANCELLED':'cancelled'
 }
 export const BOOKING_STATUS_MAP_CLASSNAME:Record<typeof BOOKING_STATUS_CONST[number],string> ={
   'PAID':'bg-[#ECFDF3] text-green-700',
-  'PENDING':'bg-yellow-50 text-yellow-700'
+  'PENDING':'bg-yellow-50 text-yellow-700',
+  'CANCELLED':'bg-red-50 text-red-700',
 }
 
 
