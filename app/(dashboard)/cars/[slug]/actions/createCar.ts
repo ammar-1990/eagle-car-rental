@@ -29,6 +29,8 @@ export const createCar = async (data: z.infer<typeof carSchema>):Promise<{succes
             seats:Number(seats),
             kmIncluded:Number(kmIncluded),
             deposit:Number(deposit),
+            availableCars:Number(rest.availableCars),
+            carYear:Number(rest.carYear),
             minimumRentalHours:Number(minimumRentalHours),
             extraOptions:{
                 createMany: {

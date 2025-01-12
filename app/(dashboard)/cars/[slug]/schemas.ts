@@ -26,6 +26,9 @@ export const carSchema = z.object({
     seats: numberSchema.refine((data) => SEATS.includes(Number(data)), {
         message: 'Enter a valid seat number',
       }),
+      availableCars:numberSchema,
+      carYear:numberSchema,
+
       fuel:z.nativeEnum(Fuel).refine(data=>!!data,{message:'Enter Valid Fuel Type Please'}),
       image:requiredStringSchema,
       pricing:pricingSchema,

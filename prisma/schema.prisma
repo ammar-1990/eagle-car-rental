@@ -31,6 +31,9 @@ model Car {
   subTitle  String
   location  Locations
   seats     Int
+  carYear   Int
+
+  availableCars Int
 
   fuel               Fuel
   //apperance
@@ -172,3 +175,5 @@ enum BookingStatus {
   PENDING
   CANCELLED
 }
+
+ 

@@ -44,7 +44,7 @@ export const BOOKING_STATUS_MAP_CLASSNAME:Record<typeof BOOKING_STATUS_CONST[num
 }
 
 
-export const TAKE_BOOKINGS = 2
+export const TAKE_BOOKINGS = 10
 
 export type CarCardWithCarType = {
   id:string,

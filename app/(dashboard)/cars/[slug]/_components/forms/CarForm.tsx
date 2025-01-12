@@ -83,6 +83,13 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
             values={carTypes}
             renderItem={(value) => ({ label: value.title, value: value.id })}
           />
+             <InputField
+            form={form}
+            name="carYear"
+            label="Car Year"
+            placeholder="Enter Car Year"
+            inputStyles="max-w-[357px]"
+          />
           <SelectField
             inputStyles="max-w-[357px]"
             form={form}
@@ -94,6 +101,13 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
               label: SEATS_MAP[value as (typeof SEATS_CONST)[number]],
               value: String(value),
             })}
+          />
+           <InputField
+            form={form}
+            name="availableCars"
+            label="Available Cars Number"
+            placeholder="Enter Available Cars Number"
+            inputStyles="max-w-[357px]"
           />
           <SelectField
             inputStyles="max-w-[357px] capitalize"

@@ -85,6 +85,8 @@ export const updateCar = async ({
           seats: Number(seats),
           kmIncluded: Number(kmIncluded),
           deposit: Number(deposit),
+          availableCars:Number(rest.availableCars),
+          carYear:Number(rest.carYear),
           minimumRentalHours: Number(minimumRentalHours),
       
         },

@@ -88,7 +88,7 @@ const prices = z.object({
 
 const status = z.object({
   status: z.nativeEnum(BookingStatus),
-  terms: z.boolean(),
+  terms:z.boolean().refine(value=>!!value ,{message:"You Must Accept Terms & Conditions."})
 });
 
 export const bookingSchema = drivingDetails

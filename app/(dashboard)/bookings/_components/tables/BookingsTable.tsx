@@ -52,7 +52,7 @@ const BookingsTable = ({ bookings, bookingsCount,q }: Props) => {
                   <TableRow key={booking.bookingID}>
                     <TableCell className="">{booking.bookingID}</TableCell>
                     <TableCell>
-                      {format(new Date(booking.createdAt), "dd/MM/yyyy")}
+                      {format(new Date(booking.createdAt), "MMM, dd yyyy - HH:mm")}
                     </TableCell>
                     <TableCell className="text-[#101828] font-[500] capitalize">
                       {booking.firstName} {booking.lastName}
