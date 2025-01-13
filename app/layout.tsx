@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import ModalsProvider from "./providers/ModalsProvider";
 import { EdgeStoreProvider } from "../lib/edgestore";
+import TanstackProvider from "./(dashboard)/_components/TanstackProvide";
 
 const poppins = Poppins({
   weight: ["400", "500", "700", "900"],
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
-        <Toaster richColors />
-        <EdgeStoreProvider>{children}</EdgeStoreProvider>
-        <ModalsProvider />
+        <TanstackProvider>
+          <Toaster richColors />
+          <EdgeStoreProvider>{children}</EdgeStoreProvider>
+          <ModalsProvider />
+        </TanstackProvider>
       </body>
     </html>
   );

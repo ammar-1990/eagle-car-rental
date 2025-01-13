@@ -68,10 +68,34 @@ export const getCarsTypes =  cache(async()=>{
   return carTypes
 })
 
+export function generateTimeSlots(interval: number = 30): string[] {
+  const times: string[] = [];
+  for (let hour = 0; hour < 24; hour++) {
+    for (let minute = 0; minute < 60; minute += interval) {
+      const time = `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+      times.push(time);
+    }
+  }
+  return times;
+}
 
 
+export function convertDateToISOString(date: Date | undefined) {
+  if (!date) {
+    return undefined;
+  }
 
+  // Manually construct the ISO string in YYYY-MM-DD format
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // getMonth() returns 0-11
+  const day = date.getDate();
 
+  // Pad single digit month and day with leading zeros
+  const paddedMonth = month.toString().padStart(2, "0");
+  const paddedDay = day.toString().padStart(2, "0");
+
+  return `${year}-${paddedMonth}-${paddedDay}`;
+}
 
 
 
@@ -140,3 +164,17 @@ export const prepareChartData = (
 
   return chartData;
 };
+
+
+export function combineDateAndTimeToUTC(
+  dateString: string,
+  timeString: string
+) {
+  // Combine the date and time strings
+  const combinedDateTimeString = `${dateString}T${timeString}:00.000Z`;
+
+  // Create a Date object from the combined string
+  const utcDate = new Date(combinedDateTimeString);
+
+  return utcDate;
+}

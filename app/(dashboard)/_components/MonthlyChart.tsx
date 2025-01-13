@@ -19,7 +19,7 @@ const MonthlyChart = async (props: Props) => {
   const chartData = prepareChartData(bookings, year, month);
 
   return (
-    <div className="mt-12 rounded-md shadow-md p-10 border">
+    <div className="">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <h3 className="font-bold text-lg text-site-primary capitalize">
