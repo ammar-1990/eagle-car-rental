@@ -8,7 +8,7 @@ import PopOverField from "./PopoverField";
 import { Loader } from "lucide-react";
 import SuperButton from "@/components/SuperButton";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
@@ -126,7 +126,7 @@ const AvailabilityComponent = ({ cars }: Props) => {
                         </span>
 
                         <span className="text-xs text-muted-foreground">
-                          {format(new Date(date.startDate), "MMM, dd yyyy")}
+                          {formatInTimeZone(new Date(date.startDate),"UTC", "MMM, dd yyyy - HH:mm")}
                         </span>
                       </span>
                       <span className="flex items-center gap-1">
@@ -135,7 +135,7 @@ const AvailabilityComponent = ({ cars }: Props) => {
                         </span>
 
                         <span className="text-xs text-muted-foreground">
-                          {format(new Date(date.endDate), "MMM, dd yyyy")}
+                          {formatInTimeZone(new Date(date.endDate),"UTC", "MMM, dd yyyy - HH:mm")}
                         </span>
                       </span>
                     </div>
