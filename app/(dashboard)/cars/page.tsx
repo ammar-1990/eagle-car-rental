@@ -51,7 +51,7 @@ const CarsPage = async ({ searchParams }: Props) => {
         </div>
         <Suspense
           fallback={
-            <Skeleton className="h-[200px] w-full mt-2 bg-muted-foreground" />
+            <Skeleton className="h-[200px] w-full mt-2 " />
           }
         >
           <CarTypeFeed />

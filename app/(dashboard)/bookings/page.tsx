@@ -30,7 +30,7 @@ const BookingsPage = async ({searchParams}: Props) => {
         <Suspense
         key={pageNumber}
           fallback={
-            <Skeleton className="h-[600px] w-full mt-2 bg-muted-foreground" />
+            <Skeleton className="h-[600px] w-full mt-2" />
           }
         >
           <BookingsFeed q={q} page={pageNumber}  />

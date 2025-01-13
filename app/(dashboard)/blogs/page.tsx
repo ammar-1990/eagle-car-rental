@@ -33,7 +33,7 @@ const BlogsPage = async (props: Props) => {
         </div>
         <Suspense
           fallback={
-            <Skeleton className="h-[200px] w-full mt-2 bg-muted-foreground" />
+            <Skeleton className="h-[200px] w-full mt-2 " />
           }
         >
           <CategoriesFeed />
@@ -56,7 +56,7 @@ const BlogsPage = async (props: Props) => {
         <div className="mt-2">
           <Suspense
             fallback={
-              <Skeleton className="h-[200px] w-full mt-2 bg-muted-foreground" />
+              <Skeleton className="h-[200px] w-full mt-2 " />
             }
           >
             <BlogsFeed />
