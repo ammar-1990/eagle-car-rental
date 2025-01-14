@@ -4,7 +4,15 @@ import { twMerge } from "tailwind-merge";
 import CustomError from "./CustomError";
 import { cache } from "react";
 import prisma from "./prisma";
-import { eachDayOfInterval, endOfMonth, format, startOfMonth } from "date-fns";
+import {
+  eachDayOfInterval,
+  endOfDay,
+  endOfMonth,
+  format,
+  startOfDay,
+  startOfMonth,
+  subDays,
+} from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -18,26 +26,24 @@ export function log({
   messages,
   type,
 }: {
-  shouldLog?: boolean ;
-  type?: "error" | "warn" | '';
+  shouldLog?: boolean;
+  type?: "error" | "warn" | "";
   messages: unknown[];
 }): void {
   if (shouldLog) {
-
-    switch(type){
-      case 'warn':{
+    switch (type) {
+      case "warn": {
         console.warn(messages);
         break;
       }
-      case 'error':{
+      case "error": {
         console.error(messages);
         break;
       }
-      default:{
+      default: {
         console.log(messages);
       }
     }
-
   }
 }
 
@@ -45,8 +51,8 @@ export const throwCustomError = (message: string): never => {
   throw new CustomError(message);
 };
 
-export const errorToast = (message:string = "Something went wrong")=>toast.error(message)
-
+export const errorToast = (message: string = "Something went wrong") =>
+  toast.error(message);
 
 export function formatToDollar(value: number): string {
   if (isNaN(value)) {
@@ -59,26 +65,29 @@ export function formatToDollar(value: number): string {
   }).format(value);
 }
 
+export const getCarsTypes = cache(async () => {
+  const carTypes = await prisma.carType.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
-export const getCarsTypes =  cache(async()=>{
-  const carTypes = await prisma.carType.findMany({orderBy:{
-    createdAt:'desc'
-  }})
-
-  return carTypes
-})
+  return carTypes;
+});
 
 export function generateTimeSlots(interval: number = 30): string[] {
   const times: string[] = [];
   for (let hour = 0; hour < 24; hour++) {
     for (let minute = 0; minute < 60; minute += interval) {
-      const time = `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+      const time = `${String(hour).padStart(2, "0")}:${String(minute).padStart(
+        2,
+        "0"
+      )}`;
       times.push(time);
     }
   }
   return times;
 }
-
 
 export function convertDateToISOString(date: Date | undefined) {
   if (!date) {
@@ -96,8 +105,6 @@ export function convertDateToISOString(date: Date | undefined) {
 
   return `${year}-${paddedMonth}-${paddedDay}`;
 }
-
-
 
 export const getMonthlyRevenue = async (year: number, month: number) => {
   const startDate = new Date(year, month, 1); // First day of the month
@@ -126,6 +133,84 @@ export const getMonthlyRevenue = async (year: number, month: number) => {
   return { bookings, monthlyRevenue };
 };
 
+export const getDailyRevenue = async (date: Date) => {
+  const currentDayStart = startOfDay(date);
+  const currentDayEnd = endOfDay(date);
+  const previousDayStart = startOfDay(subDays(date, 1));
+  const previousDayEnd = endOfDay(subDays(date, 1));
+
+  // Fetch bookings for the current day
+  const currentDayBookingsRes = prisma.booking.findMany({
+    where: {
+      createdAt: {
+        gte: currentDayStart,
+        lte: currentDayEnd,
+      },
+    },
+    select: {
+      totalAmount: true,
+    },
+  });
+
+  // Fetch bookings for the previous day
+  const previousDayBookingsRes = prisma.booking.findMany({
+    where: {
+      createdAt: {
+        gte: previousDayStart,
+        lte: previousDayEnd,
+      },
+    },
+    select: {
+      totalAmount: true,
+    },
+  });
+
+  const [currentDayBookings, previousDayBookings] = await Promise.all([
+    currentDayBookingsRes,
+    previousDayBookingsRes,
+  ]);
+  const currentDayTotal = currentDayBookings.reduce(
+    (sum, booking) => sum + booking.totalAmount,
+    0
+  );
+  const previousDayTotal = previousDayBookings.reduce(
+    (sum, booking) => sum + booking.totalAmount,
+    0
+  );
+
+  let percentageChange: string;
+  let trend: "up" | "down" | "neutral";
+
+  if (previousDayTotal === 0) {
+    if (currentDayTotal === 0) {
+      percentageChange = "No revenue on both days";
+      trend = "neutral";
+    } else {
+      percentageChange = "New revenue today";
+      trend = "up";
+    }
+  } else {
+    const change =
+      ((currentDayTotal - previousDayTotal) / previousDayTotal) * 100;
+    percentageChange = `${change.toFixed(2)}%`;
+
+    if (change > 0) {
+      trend = "up";
+    } else if (change < 0) {
+      trend = "down";
+    } else {
+      trend = "neutral";
+    }
+  }
+
+  return {
+    dailyRevenue: currentDayTotal,
+    yesterDayRevenue: previousDayTotal,
+    percentageChange,
+    trend,
+  };
+};
+
 export const prepareChartData = (
   bookings: { createdAt: Date; totalAmount: number }[],
   year: number,
@@ -136,8 +221,6 @@ export const prepareChartData = (
     start: startOfMonth(new Date(year, month)),
     end: endOfMonth(new Date(year, month)),
   });
-
-  
 
   // Initialize data object with all days set to 0
   const dailyTotals: { [key: string]: number } = {};
@@ -164,7 +247,6 @@ export const prepareChartData = (
 
   return chartData;
 };
-
 
 export function combineDateAndTimeToUTC(
   dateString: string,
