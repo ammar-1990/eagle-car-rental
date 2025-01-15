@@ -1,3 +1,5 @@
+'use client'
+
 //bg-[#ECFDF3] text-green-700
 //bg-yellow-50 text-yellow-700
 //bg-red-50 text-red-700
