@@ -260,3 +260,114 @@ export function combineDateAndTimeToUTC(
 
   return utcDate;
 }
+
+
+
+
+
+
+export const calculateBookingsPerDay = (
+  bookings: { startDate: Date; endDate: Date }[],
+  startDate: Date,
+  endDate: Date
+): Record<string, number> => {
+  const numBookingsPerDay: Record<string, number> = {};
+
+  bookings.forEach((booking) => {
+    const bookingStart = booking.startDate.getTime();
+    const bookingEnd = booking.endDate.getTime();
+
+    // console.log("arrival range", startDate);
+    // console.log("departure range", endDate);
+
+    // Case 1: Arrival date is the same as departure date
+
+    if (
+      new Date(startDate).setHours(0, 0, 0, 0) ===
+      new Date(endDate).setHours(0, 0, 0, 0)
+    ) {
+      if (
+        bookingStart <= endDate.getTime() &&
+        bookingEnd >= startDate.getTime()
+      ) {
+        const currentDay = `${startDate.getFullYear()}-${
+          startDate.getMonth() + 1
+        }-${startDate.getDate()}`;
+        numBookingsPerDay[currentDay] =
+          (numBookingsPerDay[currentDay] || 0) + 1;
+      }
+    } else {
+      // Case 2: Arrival date is different from departure date
+
+      const currentDate = new Date(startDate);
+    
+
+      while (
+        currentDate.getDate() <= endDate.getDate() &&
+        currentDate.getMonth() <= endDate.getMonth() &&
+        currentDate.getFullYear() <= endDate.getFullYear()
+      ) {
+      
+        if (currentDate.getDate() === startDate.getDate()) {
+          //Case a: Current day is equal to user arrival day
+          if (
+            bookingStart <=
+              new Date(currentDate.getTime()).setHours(23, 30, 0, 0) &&
+            bookingEnd >= currentDate.getTime()
+          ) {
+            const currentDay = `${currentDate.getFullYear()}-${
+              currentDate.getMonth() + 1
+            }-${currentDate.getDate()}`;
+            numBookingsPerDay[currentDay] =
+              (numBookingsPerDay[currentDay] || 0) + 1;
+          }
+        } else if (currentDate.getDate() === endDate.getDate()) {
+          //Case b: Current day is equal to user departure day
+          if (
+            bookingStart <= endDate.getTime() &&
+            bookingEnd >= new Date(currentDate.getTime()).setHours(0, 0, 0, 0)
+          ) {
+            const currentDay = `${currentDate.getFullYear()}-${
+              currentDate.getMonth() + 1
+            }-${currentDate.getDate()}`;
+            numBookingsPerDay[currentDay] =
+              (numBookingsPerDay[currentDay] || 0) + 1;
+          }
+        } else {
+          if (
+            bookingStart <=
+              new Date(currentDate.getTime()).setHours(23, 30, 0, 0) &&
+            bookingEnd >= new Date(currentDate.getTime()).setHours(0, 0, 0, 0)
+          ) {
+            const currentDay = `${currentDate.getFullYear()}-${
+              currentDate.getMonth() + 1
+            }-${currentDate.getDate()}`;
+            numBookingsPerDay[currentDay] =
+              (numBookingsPerDay[currentDay] || 0) + 1;
+          }
+        }
+
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+    }
+  });
+  console.log("Bookings Per Day",numBookingsPerDay);
+  return numBookingsPerDay;
+};
+
+ 
+export const checkBookingAvailability = (bookings: {startDate:Date,endDate:Date}[], startDate: Date, endDate: Date, numberOfCars: number): boolean => {
+  const bookingsPerDay = calculateBookingsPerDay(bookings, startDate, endDate);
+
+
+ for(const theDate in bookingsPerDay){
+  console.log('places',bookingsPerDay[theDate])
+  if(bookingsPerDay[theDate] && bookingsPerDay[theDate] >= numberOfCars)
+  {
+      console.log('places',bookingsPerDay[theDate])
+      return false
+  }
+ }
+
+  return true;
+};

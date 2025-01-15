@@ -2,7 +2,7 @@
 
 import CustomError from "@/lib/CustomError";
 import prisma from "@/lib/prisma";
-import { combineDateAndTimeToUTC, throwCustomError } from "@/lib/utils";
+import { checkBookingAvailability, combineDateAndTimeToUTC, throwCustomError } from "@/lib/utils";
 
 export const getAvailability = async (
   carId: string,
@@ -56,7 +56,9 @@ export const getAvailability = async (
 
     if (!car) return throwCustomError("Car Does Not Exist");
 
-    if (car.bookings.length) {
+    const isAvailable = checkBookingAvailability(car.bookings,completeStartDate,completeEndDate,car.availableCars)
+    
+    if (!isAvailable) {
       return {
         success: true,
         message: "Car Is Not Available",

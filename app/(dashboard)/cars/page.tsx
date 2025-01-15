@@ -74,7 +74,7 @@ const CarsPage = async ({ searchParams }: Props) => {
         <Suspense
           key={carType}
           fallback={
-            <Skeleton className="h-[200px] w-full mt-2 bg-muted-foreground" />
+            <Skeleton className="h-[200px] w-full mt-2" />
           }
         >
           <CarsFeed carType={carType} carTypeLabel={carTypeLabel} />
