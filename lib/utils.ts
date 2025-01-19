@@ -378,3 +378,12 @@ export const formatDateUtc = (date:Date)=>{
   return formatInTimeZone(date,'UTC','MMM, dd yyyy - HH:mm')
  }
  
+
+ 
+export function formatPhoneNumber(phone:string) {
+  // Remove any non-numeric characters
+  const cleaned = phone.replace(/[^0-9]/g, "");
+
+  // Format the number into (xxx) xxx-xxxx
+  return cleaned.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+}

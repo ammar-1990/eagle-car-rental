@@ -3,11 +3,12 @@ import { notFound } from "next/navigation";
 import React from "react";
 import Heading from "../../_components/Heading";
 import { format } from "date-fns";
-import { formatDateUtc, formatToDollar } from "@/lib/utils";
+import { formatDateUtc, formatPhoneNumber, formatToDollar } from "@/lib/utils";
 import { ExtraOptionsType } from "../../cars/[slug]/schemas";
 import SuperButton from "@/components/SuperButton";
 import { ChevronLeft } from "lucide-react";
 import Badge from "@/components/Badge";
+import ImageComponent from "@/components/ImageComponent";
 
 type Props = {
   params: Promise<{ bookingID: string }>;
@@ -23,6 +24,7 @@ const page = async ({ params }: Props) => {
       car: {
         select: {
           subTitle: true,
+          image:true,
           carType: {
             select: {
               title: true,
@@ -46,7 +48,15 @@ const page = async ({ params }: Props) => {
       </h3>
       <Badge status={booking.status} />
 </div>
-     
+     <div className="h-[300px] relative mt-3">
+     <ImageComponent src={booking.car.image} alt="img" aspect="video"   className="h-full w-full  blur-[3px] absolute top-0 left-0" />
+     <ImageComponent src={booking.car.image} alt="img" aspect="video" imgClassName="object-contain" className="h-full w-full  relative" />
+     </div>
+  
+   
+    
+   
+    
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div>
@@ -78,7 +88,7 @@ const page = async ({ params }: Props) => {
             <BookingItem label="Client Email" value={booking.email} />
             <BookingItem
               label="Client Contact Number"
-              value={`+${booking.contactNumber}`}
+              value={`${formatPhoneNumber(booking.contactNumber)}`}
             />
           </div>
         </div>
@@ -92,7 +102,7 @@ const page = async ({ params }: Props) => {
             />
             <BookingItem
               label="Billing Contact Number"
-              value={`+${booking.billingContactNumber}`}
+              value={`${formatPhoneNumber(booking.billingContactNumber)}`}
             />
           </div>
         </div>
