@@ -20,7 +20,7 @@ export const pricingSchema = z.object({
 
 
 export const carSchema = z.object({
-    slug:requiredStringSchema,
+    slug:requiredStringSchema.max(70),
     carTypeId:requiredStringSchema,
     subTitle:requiredStringSchema,
   location:z.nativeEnum(Locations).refine(data=>!!data,{message:'Enter Valid Location Please'}),
