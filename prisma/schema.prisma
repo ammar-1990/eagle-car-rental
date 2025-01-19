@@ -97,11 +97,12 @@ model Booking {
   //prices
   price                Float
   totalAmount          Float
+  payNow               Float
   paymentMethod        PaymentMethod @default(CARD)
   extraOptions         Json
   //status
   status               BookingStatus @default(PENDING)
-  terms Boolean
+  terms                Boolean
 
   carId String
   car   Car    @relation(fields: [carId], references: [id])
@@ -142,8 +143,8 @@ model Faq {
 
 model Settings {
   id             String   @id @default("settings")
-  companyName    String   
-  email          String 
+  companyName    String
+  email          String
   password       String
   phoneNumber    String
   whatsAppNumber String
@@ -175,5 +176,3 @@ enum BookingStatus {
   PENDING
   CANCELLED
 }
-
- 

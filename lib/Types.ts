@@ -62,6 +62,9 @@ export type CarCardWithCarType = {
     firstName: string;
     lastName: string;
     totalAmount: number;
+    payNow: number;
+    startDate:Date,
+    endDate:Date
 }
 
 

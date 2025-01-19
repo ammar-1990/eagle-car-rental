@@ -25,6 +25,7 @@ import { cn, formatToDollar } from "@/lib/utils";
 import { Check } from "lucide-react";
 import Badge from "@/components/Badge";
 import Pagination from "@/components/Pagination";
+import {formatInTimeZone} from 'date-fns-tz'
 
 type Props = { bookings: BookingTable[];  bookingsCount: number,q:string | undefined };
 
@@ -46,7 +47,9 @@ const BookingsTable = ({ bookings, bookingsCount,q }: Props) => {
                   <TableHead>Name</TableHead>
                   <TableHead className="">Email Address</TableHead>
                   <TableHead className="">Status</TableHead>
-                  <TableHead className="">Total Amount</TableHead>
+                  <TableHead className="">Paid Amount</TableHead>
+                  <TableHead className="">Delivery Date</TableHead>
+                  <TableHead className="">Return Date</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody className="text-[#475467] text-[14px]">
@@ -64,8 +67,11 @@ const BookingsTable = ({ bookings, bookingsCount,q }: Props) => {
                       <Badge status={booking.status} />
                     </TableCell>
                     <TableCell className="">
-                      {formatToDollar(booking.totalAmount)}
+                      {booking.status === 'PAID' ? formatToDollar(booking.payNow) : '-'}
                     </TableCell>
+                    <TableCell className="">{formatInTimeZone(new Date(booking.startDate),"UTC", "MMM, dd yyyy - HH:mm")}</TableCell>
+                    <TableCell className="">{formatInTimeZone(new Date(booking.endDate),"UTC", "MMM, dd yyyy - HH:mm")}</TableCell>
+             
                   </TableRow>
                 ))}
               </TableBody>
