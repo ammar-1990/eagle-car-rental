@@ -13,6 +13,7 @@ import {
   startOfMonth,
   subDays,
 } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -371,3 +372,9 @@ export const checkBookingAvailability = (bookings: {startDate:Date,endDate:Date}
 
   return true;
 };
+
+
+export const formatDateUtc = (date:Date)=>{
+  return formatInTimeZone(date,'UTC','MMM, dd yyyy - HH:mm')
+ }
+ 
