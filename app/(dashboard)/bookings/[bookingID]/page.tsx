@@ -62,7 +62,7 @@ const page = async ({ params }: Props) => {
         <div>
           <h3 className="capitalize font-semibold">car details</h3>
           <div className="flex items-center flex-col mt-2">
-            <BookingItem label="Car Name" value={booking.car.subTitle} />
+            <BookingItem label="Car Name" value={`${booking.car.carType.title} (${booking.car.subTitle})`} />
             <BookingItem
               label="Booking Date"
               value={format(booking.createdAt, "MMM, dd yyyy - HH:mm")}

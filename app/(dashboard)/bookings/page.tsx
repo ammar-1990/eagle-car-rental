@@ -39,7 +39,7 @@ const BookingsPage = async ({ searchParams }: Props) => {
     <div>
       <div className="flex justify-between w-full items-start">
         <Heading title="Bookings" />
-        <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-4">
           <Search
             inputType={"input"}
             searchParam="q"
