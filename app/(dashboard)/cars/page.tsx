@@ -7,8 +7,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import CarTypeFeed from "./_components/feeds/CarTypeFeed";
 import CarsFeed from "./_components/feeds/CarsFeed";
 import Search from "@/components/Search";
+import CarsByLocation from "./_components/CarsByLocation";
+import { LOCATIONS_CONST } from "@/lib/Types";
+import OurCars from "./_components/CarsByLocation";
 
-type Props = { searchParams: Promise<{ carType: string | undefined }> };
+type Props = { searchParams: Promise<{ carType: string | undefined,pickUpLocation:(typeof LOCATIONS_CONST)[number] | undefined }> };
 
 const CarsPage = async ({ searchParams }: Props) => {
   const carTypes = (await getCarsTypes()).map((item) => ({
@@ -20,6 +23,8 @@ const CarsPage = async ({ searchParams }: Props) => {
   const carType = (await searchParams).carType;
   //correlated label for above Id to render in no result incase no cars for this id
   const carTypeLabel = carTypes.find((item) => item.value === carType)?.label;
+
+  const pickUpLocation = (await searchParams).pickUpLocation
   return (
     <div>
       <div className="flex justify-between">
@@ -57,6 +62,8 @@ const CarsPage = async ({ searchParams }: Props) => {
           <CarTypeFeed />
         </Suspense>
       </div>
+      {/* cars by locations */}
+     <OurCars />
       {/* Cars Feed */}
       <div className="mt-[80px]">
         <div className="flex items-center gap-8 justify-between">
@@ -77,7 +84,7 @@ const CarsPage = async ({ searchParams }: Props) => {
             <Skeleton className="h-[200px] w-full mt-2" />
           }
         >
-          <CarsFeed carType={carType} carTypeLabel={carTypeLabel} />
+          <CarsFeed carType={carType} carTypeLabel={carTypeLabel} location={pickUpLocation}/>
         </Suspense>
       </div>
     </div>

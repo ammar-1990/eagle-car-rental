@@ -3,15 +3,21 @@ import React from "react";
 
 import NoResult from "@/components/NoResult";
 import CarCard from "../cards/CarCard";
+import { LOCATIONS_CONST } from "@/lib/Types";
 
 type Props = {
   carType: string | undefined;
   carTypeLabel:string | undefined
+  location:(typeof LOCATIONS_CONST)[number] | undefined
 };
 
-const CarsFeed = async ({ carType, carTypeLabel }: Props) => {
+const CarsFeed = async ({ carType, carTypeLabel,location }: Props) => {
   const cars = await prisma.car.findMany({
-    ...(carType && { where: { carTypeId: carType } }),
+    where:{
+      ...(carType &&{ carTypeId: carType } ),
+      ...(location && {location})
+    },
+   
     orderBy: {
       createdAt: "desc",
     },
