@@ -58,10 +58,10 @@ const page = async ({ params }: Props) => {
    
     
 
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <h3 className="capitalize font-semibold">car details</h3>
-          <div className="flex items-center flex-col mt-2">
+          <div className="w-full mt-2">
             <BookingItem label="Car Name" value={`${booking.car.carType.title} (${booking.car.subTitle})`} />
             <BookingItem
               label="Booking Date"
@@ -80,7 +80,7 @@ const page = async ({ params }: Props) => {
 
         <div>
           <h3 className="capitalize font-semibold">client details</h3>
-          <div className="flex items-center flex-col mt-2">
+          <div className="w-full mt-2">
             <BookingItem
               label="Client Name"
               value={`${booking.firstName} ${booking.middleName} ${booking.lastName}`}
@@ -94,8 +94,8 @@ const page = async ({ params }: Props) => {
         </div>
 
         <div>
-          <h3 className="capitalize font-semibold">billinkg details</h3>
-          <div className="flex items-center flex-col mt-2">
+          <h3 className="capitalize font-semibold">billing details</h3>
+          <div className="w-full mt-2">
             <BookingItem
               label="Billing Name"
               value={`${booking.billingFirstName} ${booking.billingMiddleName} ${booking.billingLastName}`}
@@ -104,12 +104,46 @@ const page = async ({ params }: Props) => {
               label="Billing Contact Number"
               value={`${formatPhoneNumber(booking.billingContactNumber)}`}
             />
+               <BookingItem
+              label="Billing Address"
+              value={`+${booking.address}`}
+           
+            />
+             <BookingItem
+              label="Billing City"
+              value={`+${booking.City}`}
+           
+            />
+             <BookingItem
+              label="Billing State"
+              value={`+${booking.State}`}
+           
+            />
+             <BookingItem
+              label="Billing Zipcode"
+              value={`+${booking.Zipcode}`}
+           
+            />
+            {
+              booking.companyName &&  <BookingItem
+              label="Company Name"
+              value={`+${booking.companyName}`}
+           
+            />
+            }
+            {
+              booking.companyVat &&  <BookingItem
+              label="Company Name"
+              value={`+${booking.companyVat}`}
+           
+            />
+            }
           </div>
         </div>
 
         <div>
           <h3 className="capitalize font-semibold">Payment Details</h3>
-          <div className="flex items-center flex-col mt-2">
+          <div className="w-full mt-2">
             <BookingItem label="Payment Method" value={booking.paymentMethod} />
             <BookingItem
               label="Total Amount"
@@ -124,7 +158,7 @@ const page = async ({ params }: Props) => {
         {!!extraOptions.length && (
           <div>
             <h3 className="capitalize font-semibold">Extra Options</h3>
-            <div className="flex items-center flex-col mt-2">
+            <div className="w-full mt-2">
               {extraOptions.map((option, index) => (
                 <BookingItem
                   key={index}
@@ -136,6 +170,11 @@ const page = async ({ params }: Props) => {
           </div>
         )}
       </div>
+      <div className="mt-12 flex flex-col gap-1 w-[100px] items-start">
+        {booking.license && <SuperButton download title="License" variant="link" className="text-black" buttonType="linkButton" target="_blank" href={booking.license} />}
+        {booking.insurance && <SuperButton download variant="link" title="Insurance" className="text-black" buttonType="linkButton" target="_blank" href={booking.insurance} />}
+        {booking.returnFlight && <SuperButton download variant="link" title="Return Flight" className="text-black" buttonType="linkButton" target="_blank" href={booking.returnFlight} />}
+      </div>
 
       <SuperButton title="Back" buttonType="pushButton" href="/bookings" className="mt-12" Icon={<ChevronLeft className="icon" />}/>
     </div>
@@ -146,11 +185,11 @@ export default page;
 
 const BookingItem = ({ label, value }: { label: string; value: string }) => {
   return (
-    <div className="flex items-center border roudned-md w-full border-b-0 last:border-b ">
-      <p className="felx items-center border-r justify-center text-center font-semibold h-full py-8 flex-1 shrink-0 text-xs px-1">
+    <div className="flex flex-col gap-1 mt-3">
+      <p className="text-xs capitalize text-[#606060] font-[600] text-[14px]">
         {label}
       </p>
-      <p className="felx items-center justify-center text-center text-muted-foreground h-full py-8 flex-1 shrink-0 text-xs px-1 capitalize">
+      <p className="border bg-[#F5F6FA] rounded-[4px] px-[17px] py-[12px] font-[400] text-[14px] text-black">
         {value}
       </p>
     </div>

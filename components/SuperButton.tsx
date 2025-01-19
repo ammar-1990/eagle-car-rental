@@ -7,7 +7,7 @@ import { Loader2, LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ButtonHTMLAttributes, ReactNode, useTransition } from "react";
+import { ButtonHTMLAttributes, HTMLAttributeAnchorTarget, ReactNode, useTransition } from "react";
 import { toast } from "sonner";
 
 const SuperButton = (props: SuperButtonProps) => {
@@ -41,11 +41,11 @@ const RenderButton = (props: SuperButtonProps) => {
 const RenderLinkButton = (
   props: LinkType & NormalButton & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
-  const { title, Icon, className, href, buttonType,variant, ...rest } = props;
+  const { title, Icon, className, href, buttonType,variant,scroll,replace,target,download, ...rest } = props;
 
   return (
     <Button {...rest}  className={cn("", className)} variant={variant ?? "site"} asChild>
-      <Link className="flex items-center" href={href}>
+     <Link scroll={scroll} download={download} className="flex items-center" href={href} replace={replace} target={target}>
         {Icon && Icon}
         {title}
       </Link>
@@ -195,6 +195,10 @@ type ModalType = { buttonType: "modalButton"; modalInputs: ModalInputs };
 type LinkType = {
   buttonType: "linkButton";
   href: string;
+  scroll?:boolean,
+  replace?:boolean
+  target?: HTMLAttributeAnchorTarget
+  download?:boolean
 };
 
 type PushType = {
