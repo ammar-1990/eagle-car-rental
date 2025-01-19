@@ -2,42 +2,30 @@ import prisma from "@/lib/prisma";
 import React from "react";
 import BookingsTable from "../tables/BookingsTable";
 import { TAKE_BOOKINGS } from "@/lib/Types";
+import { $Enums, Prisma } from "@prisma/client";
 
 type Props = {
   page: string;
   q: string | undefined;
+  status:$Enums.BookingStatus | undefined
 };
 
-const BookingsFeed = async ({ page, q }: Props) => {
+const BookingsFeed = async ({ page, q, status }: Props) => {
   const pageNumber = Number(page);
-  const bookingsRes = prisma.booking.findMany({
+
+  const whereClause: Prisma.BookingWhereInput = {
     ...(q && {
-      where: {
-        OR: [
-          {
-            bookingID: {
-              contains: q,
-              
-            },
-          },
-          {
-            email: {
-              contains: q,
-            },
-          },
-          {
-            firstName: {
-              contains: q,
-            },
-          },
-          {
-            lastName: {
-              contains: q,
-            },
-          },
-        ],
-      },
+      OR: [
+        { bookingID: { contains: q } },
+        { email: { contains: q } },
+        { firstName: { contains: q } },
+        { lastName: { contains: q } },
+      ],
     }),
+    ...(status && { status }), // Add status filter if provided
+  };
+  const bookingsRes = prisma.booking.findMany({
+    where:Object.keys(whereClause).length > 0 ? whereClause : undefined,
     select: {
       bookingID: true,
       createdAt: true,
@@ -58,32 +46,7 @@ const BookingsFeed = async ({ page, q }: Props) => {
   });
 
   const bookingsCountRes = prisma.booking.count({
-    ...(q && {
-      where: {
-        OR: [
-          {
-            bookingID: {
-              contains: q,
-            },
-          },
-          {
-            email: {
-              contains: q,
-            },
-          },
-          {
-            firstName: {
-              contains: q,
-            },
-          },
-          {
-            lastName: {
-              contains: q,
-            },
-          },
-        ],
-      },
-    }),
+    where:Object.keys(whereClause).length > 0 ? whereClause : undefined,
   });
 
   const [bookings, bookingsCount] = await Promise.all([

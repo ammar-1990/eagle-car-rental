@@ -33,7 +33,7 @@ const BookingsTable = ({ bookings, bookingsCount,q }: Props) => {
   return (
     <div>
       {!bookingsCount && (
-        <NoResult title="No Bookings" description={q ? `No bookings For This Query  "${q}" ` : 'No Bookings Yet'} />
+        <NoResult title="No Bookings" description={q ? `No bookings For This Query  "${q}" ` : 'No Bookings'} />
       )}
 
       {!!bookingsCount && (
