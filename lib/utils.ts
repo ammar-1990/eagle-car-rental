@@ -143,6 +143,7 @@ export const getDailyRevenue = async (date: Date) => {
   // Fetch bookings for the current day
   const currentDayBookingsRes = prisma.booking.findMany({
     where: {
+      status: "PAID",
       createdAt: {
         gte: currentDayStart,
         lte: currentDayEnd,
@@ -156,6 +157,7 @@ export const getDailyRevenue = async (date: Date) => {
   // Fetch bookings for the previous day
   const previousDayBookingsRes = prisma.booking.findMany({
     where: {
+      status: "PAID",
       createdAt: {
         gte: previousDayStart,
         lte: previousDayEnd,
@@ -262,11 +264,6 @@ export function combineDateAndTimeToUTC(
   return utcDate;
 }
 
-
-
-
-
-
 export const calculateBookingsPerDay = (
   bookings: { startDate: Date; endDate: Date }[],
   startDate: Date,
@@ -301,14 +298,12 @@ export const calculateBookingsPerDay = (
       // Case 2: Arrival date is different from departure date
 
       const currentDate = new Date(startDate);
-    
 
       while (
         currentDate.getDate() <= endDate.getDate() &&
         currentDate.getMonth() <= endDate.getMonth() &&
         currentDate.getFullYear() <= endDate.getFullYear()
       ) {
-      
         if (currentDate.getDate() === startDate.getDate()) {
           //Case a: Current day is equal to user arrival day
           if (
@@ -352,35 +347,34 @@ export const calculateBookingsPerDay = (
       }
     }
   });
-  console.log("Bookings Per Day",numBookingsPerDay);
+  console.log("Bookings Per Day", numBookingsPerDay);
   return numBookingsPerDay;
 };
 
- 
-export const checkBookingAvailability = (bookings: {startDate:Date,endDate:Date}[], startDate: Date, endDate: Date, numberOfCars: number): boolean => {
+export const checkBookingAvailability = (
+  bookings: { startDate: Date; endDate: Date }[],
+  startDate: Date,
+  endDate: Date,
+  numberOfCars: number
+): boolean => {
   const bookingsPerDay = calculateBookingsPerDay(bookings, startDate, endDate);
 
-
- for(const theDate in bookingsPerDay){
-  console.log('places',bookingsPerDay[theDate])
-  if(bookingsPerDay[theDate] && bookingsPerDay[theDate] >= numberOfCars)
-  {
-      console.log('places',bookingsPerDay[theDate])
-      return false
+  for (const theDate in bookingsPerDay) {
+    console.log("places", bookingsPerDay[theDate]);
+    if (bookingsPerDay[theDate] && bookingsPerDay[theDate] >= numberOfCars) {
+      console.log("places", bookingsPerDay[theDate]);
+      return false;
+    }
   }
- }
 
   return true;
 };
 
+export const formatDateUtc = (date: Date) => {
+  return formatInTimeZone(date, "UTC", "MMM, dd yyyy - HH:mm");
+};
 
-export const formatDateUtc = (date:Date)=>{
-  return formatInTimeZone(date,'UTC','MMM, dd yyyy - HH:mm')
- }
- 
-
- 
-export function formatPhoneNumber(phone:string) {
+export function formatPhoneNumber(phone: string) {
   // Remove any non-numeric characters
   const cleaned = phone.replace(/[^0-9]/g, "");
 
