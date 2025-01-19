@@ -106,35 +106,35 @@ const page = async ({ params }: Props) => {
             />
                <BookingItem
               label="Billing Address"
-              value={`+${booking.address}`}
+              value={`${booking.address}`}
            
             />
              <BookingItem
               label="Billing City"
-              value={`+${booking.City}`}
+              value={`${booking.City}`}
            
             />
              <BookingItem
               label="Billing State"
-              value={`+${booking.State}`}
+              value={`${booking.State}`}
            
             />
              <BookingItem
               label="Billing Zipcode"
-              value={`+${booking.Zipcode}`}
+              value={`${booking.Zipcode}`}
            
             />
             {
               booking.companyName &&  <BookingItem
               label="Company Name"
-              value={`+${booking.companyName}`}
+              value={`${booking.companyName}`}
            
             />
             }
             {
               booking.companyVat &&  <BookingItem
               label="Company Name"
-              value={`+${booking.companyVat}`}
+              value={`${booking.companyVat}`}
            
             />
             }
