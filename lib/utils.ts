@@ -107,6 +107,12 @@ export function convertDateToISOString(date: Date | undefined) {
   return `${year}-${paddedMonth}-${paddedDay}`;
 }
 
+const getBookingsTotalAmount = (bookings:{totalAmount:number}[])=>{
+return bookings.reduce(
+  (acc, val) => acc + val.totalAmount,
+  0
+);
+}
 export const getMonthlyRevenue = async (year: number, month: number) => {
   const startDate = new Date(year, month, 1); // First day of the month
   const endDate = new Date(year, month + 1, 0); // Last day of the month
@@ -126,10 +132,7 @@ export const getMonthlyRevenue = async (year: number, month: number) => {
     },
   });
 
-  const monthlyRevenue = bookings.reduce(
-    (acc, val) => acc + val.totalAmount,
-    0
-  );
+  const monthlyRevenue = getBookingsTotalAmount(bookings);
 
   return { bookings, monthlyRevenue };
 };
@@ -172,14 +175,8 @@ export const getDailyRevenue = async (date: Date) => {
     currentDayBookingsRes,
     previousDayBookingsRes,
   ]);
-  const currentDayTotal = currentDayBookings.reduce(
-    (sum, booking) => sum + booking.totalAmount,
-    0
-  );
-  const previousDayTotal = previousDayBookings.reduce(
-    (sum, booking) => sum + booking.totalAmount,
-    0
-  );
+  const currentDayTotal = getBookingsTotalAmount(currentDayBookings);
+  const previousDayTotal =getBookingsTotalAmount(previousDayBookings);
 
   let percentageChange: string;
   let trend: "up" | "down" | "neutral";
