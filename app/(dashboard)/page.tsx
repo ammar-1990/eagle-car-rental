@@ -10,6 +10,7 @@ import DailyRevenue from "./_components/DailyRevenue";
 
 type Props = {};
 
+export const revalidate = 0
 export default async function HomeMainPage(props: Props) {
   return (
     <div>
