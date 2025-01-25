@@ -7,10 +7,20 @@ import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import CarAvailability from "./_components/CarAvailability";
 import DailyRevenue from "./_components/DailyRevenue";
+import { Metadata } from "next";
 
 type Props = {};
 
 export const revalidate = 0
+export const metadata:Metadata = {
+  title:{
+    default:"Dashboard",
+    template:"%s | Eagle Car Rental"
+  },
+  icons:{
+    icon:'/icon.png'
+  }
+}
 export default async function HomeMainPage(props: Props) {
   return (
     <div>
