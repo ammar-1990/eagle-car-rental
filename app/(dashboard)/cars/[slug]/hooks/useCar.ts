@@ -29,7 +29,6 @@ export const useCar = (car: Car | null, extraOptions: ExtraOptionsType[]) => {
       subTitle: car?.subTitle ?? "",
       location: car?.location ?? "LAS_VEGAS",
       seats: String(car?.seats ?? ""),
-      carYear:String(car?.carYear) ?? '',
       availableCars:String(car?.availableCars) ?? '',
       fuel: car?.fuel ?? "DIESEL",
       image: car?.image ?? "",

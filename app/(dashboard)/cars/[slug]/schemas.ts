@@ -28,15 +28,7 @@ export const carSchema = z.object({
         message: 'Enter a valid seat number',
       }),
       availableCars:numberSchema,
-      carYear:z.string().refine(
-        (value) => {
-          const year = Number(value);
-          return /^\d{4}$/.test(value) && year >= 1886 && year <= new Date().getFullYear();
-        },
-        {
-          message: "Invalid car year. It must be a 4-digit number and within a rational range (e.g., 1886 to the current year).",
-        }
-      ),
+    
 
       fuel:z.nativeEnum(Fuel).refine(data=>!!data,{message:'Enter Valid Fuel Type Please'}),
       image:requiredStringSchema,
