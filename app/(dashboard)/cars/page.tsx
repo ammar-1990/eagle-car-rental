@@ -10,8 +10,19 @@ import Search from "@/components/Search";
 import CarsByLocation from "./_components/CarsByLocation";
 import { LOCATIONS_CONST } from "@/lib/Types";
 import OurCars from "./_components/CarsByLocation";
+import DisableByLocation from "./_components/feeds/DisableByLocation";
+ 
+ 
+ 
+ 
+ 
 
-type Props = { searchParams: Promise<{ carType: string | undefined,pickUpLocation:(typeof LOCATIONS_CONST)[number] | undefined }> };
+type Props = {
+  searchParams: Promise<{
+    carType: string | undefined;
+    pickUpLocation: (typeof LOCATIONS_CONST)[number] | undefined;
+  }>;
+};
 
 const CarsPage = async ({ searchParams }: Props) => {
   const carTypes = (await getCarsTypes()).map((item) => ({
@@ -24,12 +35,13 @@ const CarsPage = async ({ searchParams }: Props) => {
   //correlated label for above Id to render in no result incase no cars for this id
   const carTypeLabel = carTypes.find((item) => item.value === carType)?.label;
 
-  const pickUpLocation = (await searchParams).pickUpLocation
+  const pickUpLocation = (await searchParams).pickUpLocation;
   return (
     <div>
       <div className="flex justify-between">
         <Heading title="Cars" />
-        <Search placeholder="Select Car Type"
+        <Search
+          placeholder="Select Car Type"
           label="Car Type"
           searchParam="carType"
           inputType="select"
@@ -54,16 +66,12 @@ const CarsPage = async ({ searchParams }: Props) => {
             className="siteSecondary"
           />
         </div>
-        <Suspense
-          fallback={
-            <Skeleton className="h-[200px] w-full mt-2 " />
-          }
-        >
+        <Suspense fallback={<Skeleton className="h-[200px] w-full mt-2 " />}>
           <CarTypeFeed />
         </Suspense>
       </div>
       {/* cars by locations */}
-     <OurCars />
+      <OurCars />
       {/* Cars Feed */}
       <div className="mt-[80px]">
         <div className="flex items-center gap-8 justify-between">
@@ -80,11 +88,21 @@ const CarsPage = async ({ searchParams }: Props) => {
 
         <Suspense
           key={carType}
-          fallback={
-            <Skeleton className="h-[200px] w-full mt-2" />
-          }
+          fallback={<Skeleton className="h-[200px] w-full mt-2" />}
         >
-          <CarsFeed carType={carType} carTypeLabel={carTypeLabel} location={pickUpLocation}/>
+          <CarsFeed
+            carType={carType}
+            carTypeLabel={carTypeLabel}
+            location={pickUpLocation}
+          />
+        </Suspense>
+      </div>
+
+      {/* Disable by location feed */}
+      <div className="mt-[80px]">
+        <Heading title="Disable By Location" className="text-md" />
+        <Suspense fallback={<Skeleton className="h-[200px] w-full mt-2" />}>
+          <DisableByLocation />
         </Suspense>
       </div>
     </div>
