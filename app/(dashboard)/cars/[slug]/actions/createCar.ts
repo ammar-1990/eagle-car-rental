@@ -23,29 +23,32 @@ export const createCar = async (data: z.infer<typeof carSchema>):Promise<{succes
     })
     if(slugExists) return throwCustomError('Slug Already Exists')
 
+        console.log('BEFORE_CREATE *************',rest.pricing,extraOptions)
+
     await prisma.car.create({
         data:{
             ...rest,
             seats:Number(seats),
             kmIncluded:Number(kmIncluded),
             deposit:Number(deposit),
-            availableCars:Number(rest.availableCars),
-         
+            availableCars:Number(rest.availableCars),    
             minimumRentalHours:Number(minimumRentalHours),
+            disabled:false,
             extraOptions:{
                 createMany: {
                     data:extraOptions.map(option=>({price:Number(option.price),title:option.title}))
                 }
-            }
+            },
+             
 
         }
     })
-
+    console.log('AFTER_CREATE *************')
 
     return {message:'Car Created Successfully',success:true}
 
   } catch (error) {
-    console.error(error)
+    console.error("create carr error::",error)
     if(error instanceof CustomError){
         return {
             success:false,

@@ -29,7 +29,8 @@ export const useCar = (car: Car | null, extraOptions: ExtraOptionsType[]) => {
       subTitle: car?.subTitle ?? "",
       location: car?.location ?? "LAS_VEGAS",
       seats: String(car?.seats ?? ""),
-      availableCars:String(car?.availableCars) ?? '',
+      availableCars:String(car?.availableCars ?? ''),
+      
       fuel: car?.fuel ?? "DIESEL",
       image: car?.image ?? "",
       pricing: (car?.pricing as unknown as PricingType) ?? {
@@ -71,6 +72,7 @@ export const useCar = (car: Car | null, extraOptions: ExtraOptionsType[]) => {
         }
       } catch (error) {
         errorToast()
+        console.error("car create error",error)
       }
   
     });
