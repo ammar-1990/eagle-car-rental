@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import StateLabel from "./StateLabel";
+import { formatInTimeZone } from "date-fns-tz";
  
  
 
@@ -38,7 +39,7 @@ const DateField = ({ placeholder, setValue, value, stateLabel }: Props) => {
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {value ? format(value, "MMM, dd yyyy") : <span>{placeholder}</span>}
+            {value ? formatInTimeZone(value,"UTC", "MMM, dd yyyy"): <span>{placeholder}</span>}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
