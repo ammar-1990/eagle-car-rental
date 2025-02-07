@@ -36,7 +36,7 @@ export const createCar = async (data: z.infer<typeof carSchema>):Promise<{succes
             disabled:false,
             extraOptions:{
                 createMany: {
-                    data:extraOptions.map(option=>({price:Number(option.price),title:option.title}))
+                    data:extraOptions.map(option=>({price:Number(option.price),title:option.title,daily:option.daily}))
                 }
             },
              

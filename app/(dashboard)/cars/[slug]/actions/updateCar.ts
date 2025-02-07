@@ -58,10 +58,12 @@ export const updateCar = async ({
           title: incomingOption.title,
           price: Number(incomingOption.price),
           carId: id,
+          daily:incomingOption.daily
         },
         update: {
           title: incomingOption.title,
           price: Number(incomingOption.price),
+          daily:incomingOption.daily
         },
       })
     );

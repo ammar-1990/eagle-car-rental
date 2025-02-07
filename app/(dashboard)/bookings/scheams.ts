@@ -82,6 +82,7 @@ const prices = z.object({
       id: z.string().optional().or(z.literal("")),
       title: z.string().min(1, "Required").max(100),
       price: numberSchema,
+      daily:z.boolean()
     })
   ),
 });

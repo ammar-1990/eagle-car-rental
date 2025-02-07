@@ -48,7 +48,7 @@ const CarPage = async({params}: Props) => {
            <Heading title={title} />
             {/* car form */}
       <div className="mt-2">
-        <CarForm car={car} carTypes={carTypes} extraOptions={extraOptions.map(item=>({title:item.title,price:String(item.price),id:item.id}))} />
+        <CarForm car={car} carTypes={carTypes} extraOptions={extraOptions.map(item=>({title:item.title,price:String(item.price),id:item.id,daily:item.daily}))} />
       </div>
     </div>
   )

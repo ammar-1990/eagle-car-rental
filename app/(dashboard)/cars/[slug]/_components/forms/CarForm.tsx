@@ -55,6 +55,8 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
     control: form.control,
     name: "extraOptions", // The name of your array in the form schema
   });
+
+  console.log("EXTRA_OPTIONS",extraOptions)
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -238,7 +240,7 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
                 <FormControl>
                   <div className="w-full flex flex-col gap-3">
                     {fields.map((item, index) => (
-                      <div className="flex items-end gap-2" key={item.id}>
+                      <div className="flex items-end gap-5 " key={item.id}>
                         <InputField
                           form={form}
                           name={`extraOptions.${index}.title`}
@@ -252,6 +254,12 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
                           inputStyles="w-full"
                           label="Price"
                           placeholder="Add Price"
+                        />
+                        <CheckboxField
+                        form={form}
+                        name={`extraOptions.${index}.daily`}
+                        label="Daily"
+                        
                         />
                         <Button
                           onClick={() => remove(index)}
@@ -267,7 +275,7 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
                       variant={"site"}
                       type="button"
                       className="w-fit ml-auto"
-                      onClick={()=>append({price:'',title:''})}
+                      onClick={()=>append({price:'',title:'',daily:false})}
                     >
                       <Plus className="icon" /> Add Extra Option
                     </Button>
@@ -297,6 +305,7 @@ const CarForm = ({ car, carTypes, extraOptions }: Props) => {
 
 {/* {JSON.stringify(Object.entries(form.formState.errors).map(([key,value])=>([key,value.message])))} */}
 {/* {JSON.stringify(Object.keys(form.formState.errors))} */}
+{/* {JSON.stringify(form.watch('extraOptions'),null,2)} */}
       </form>
     </Form>
   );

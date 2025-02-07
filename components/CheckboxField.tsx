@@ -37,10 +37,10 @@ const CheckboxField = <T extends FieldValues>({
               <Checkbox
                 checked={field.value}
                 onCheckedChange={(checked) => field.onChange(checked)}
-                id="terms"
+                id={name}
               />
               <FormLabel
-                htmlFor="terms"
+                htmlFor={name}
                 className={cn("text-[#606060] cursor-pointer", labelStyles)}
               >
                 {label}
