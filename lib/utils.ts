@@ -379,6 +379,7 @@ export function formatPhoneNumber(phone: string) {
   return cleaned.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
 }
 
+
 export function calculateDuration(startDate: Date, endDate: Date) {
   const msInHour = 1000 * 60 * 60;
   const msInDay = msInHour * 24;
@@ -398,7 +399,7 @@ export function calculateDuration(startDate: Date, endDate: Date) {
     currentDate.getMonth() !== endMonth ||
     currentDate.getFullYear() !== endYear
   ) {
-    let nextMonth = new Date(currentDate);
+    const nextMonth = new Date(currentDate);
     nextMonth.setMonth(nextMonth.getMonth() + 1);
 
     if (nextMonth <= endDate) {
@@ -417,8 +418,8 @@ export function calculateDuration(startDate: Date, endDate: Date) {
     remainingHours = 0;
   }
 
-  let weeks = Math.floor(remainingDays / 7);
-  let days = remainingDays % 7;
+  const weeks = Math.floor(remainingDays / 7);
+  const days = remainingDays % 7;
 
   return {
     months,
