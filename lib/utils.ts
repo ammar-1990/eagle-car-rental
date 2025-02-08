@@ -378,3 +378,51 @@ export function formatPhoneNumber(phone: string) {
   // Format the number into (xxx) xxx-xxxx
   return cleaned.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
 }
+
+
+export function calculateDuration(startDate: Date, endDate: Date) {
+  const msInHour = 1000 * 60 * 60;
+  const msInDay = msInHour * 24;
+  const msInWeek = msInDay * 7;
+
+  let diff = endDate.getTime() - startDate.getTime();
+
+  let months = Math.floor(diff / (30 * msInDay));
+  diff -= months * (30 * msInDay); // Subtract months
+
+  let weeks = Math.floor(diff / msInWeek);
+  diff -= weeks * msInWeek; // Subtract weeks
+
+  let days = Math.floor(diff / msInDay);
+  diff -= days * msInDay; // Subtract days
+
+  let remainingHours = diff / msInHour; // Remaining hours as decimal
+
+  // If there are extra hours or minutes, round up the days
+  if (remainingHours > 0) {
+    days += 1;
+    remainingHours = 0; // Since we added the hours into days, remaining hours should be 0
+  }
+
+  // If days become a full week, convert to weeks
+  if (days >= 7) {
+    weeks += Math.floor(days / 7);
+    days = days % 7; // Keep remaining days
+  }
+
+  // If weeks become a full month (assuming 4 weeks = 1 month), convert to months
+  if (weeks >= 4) {
+    months += Math.floor(weeks / 4);
+    weeks = weeks % 4; // Keep remaining weeks
+  }
+
+  const totalDays = months * 30 + weeks * 7 + days;
+
+  return {
+    months,
+    weeks,
+    days,
+    hours:remainingHours, // Always 0 after rounding
+    totalDays
+  };
+}

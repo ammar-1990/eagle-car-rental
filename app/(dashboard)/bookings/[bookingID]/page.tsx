@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import React from "react";
 import Heading from "../../_components/Heading";
 import { format } from "date-fns";
-import { formatDateUtc, formatPhoneNumber, formatToDollar } from "@/lib/utils";
+import { calculateDuration, formatDateUtc, formatPhoneNumber, formatToDollar } from "@/lib/utils";
 import { ExtraOptionsType } from "../../cars/[slug]/schemas";
 import SuperButton from "@/components/SuperButton";
 import { ChevronLeft } from "lucide-react";
@@ -24,7 +24,7 @@ const page = async ({ params }: Props) => {
       car: {
         select: {
           subTitle: true,
-          image:true,
+          image: true,
           carType: {
             select: {
               title: true,
@@ -38,31 +38,42 @@ const page = async ({ params }: Props) => {
   if (!booking) notFound();
 
   const extraOptions = booking.extraOptions as unknown as ExtraOptionsType[];
+
+  const {totalDays} = calculateDuration(booking.startDate, booking.endDate)
   return (
     <div>
       <Heading title="Booking Details" />
 
-<div className=" mt-12 flex items-center gap-4">
-<h3 className="text-site-primary text-3xl font-semibold">
-        #{booking.bookingID}
-      </h3>
-      <Badge status={booking.status} />
-</div>
-     <div className="h-[300px] relative mt-3">
-     <ImageComponent src={booking.car.image} alt="img" aspect="video"   className="h-full w-full  blur-[3px] absolute top-0 left-0" />
-     <ImageComponent src={booking.car.image} alt="img" aspect="video" imgClassName="object-contain" className="h-full w-full  relative" />
-     </div>
-  
-   
-    
-   
-    
+      <div className=" mt-12 flex items-center gap-4">
+        <h3 className="text-site-primary text-3xl font-semibold">
+          #{booking.bookingID}
+        </h3>
+        <Badge status={booking.status} />
+      </div>
+      <div className="h-[300px] relative mt-3">
+        <ImageComponent
+          src={booking.car.image}
+          alt="img"
+          aspect="video"
+          className="h-full w-full  blur-[3px] absolute top-0 left-0"
+        />
+        <ImageComponent
+          src={booking.car.image}
+          alt="img"
+          aspect="video"
+          imgClassName="object-contain"
+          className="h-full w-full  relative"
+        />
+      </div>
 
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <h3 className="capitalize font-semibold">car details</h3>
           <div className="w-full mt-2">
-            <BookingItem label="Car Name" value={`${booking.car.carType.title} (${booking.car.subTitle})`} />
+            <BookingItem
+              label="Car Name"
+              value={`${booking.car.carType.title} (${booking.car.subTitle})`}
+            />
             <BookingItem
               label="Booking Date"
               value={format(booking.createdAt, "MMM, dd yyyy - HH:mm")}
@@ -104,40 +115,22 @@ const page = async ({ params }: Props) => {
               label="Billing Contact Number"
               value={`${formatPhoneNumber(booking.billingContactNumber)}`}
             />
-               <BookingItem
-              label="Billing Address"
-              value={`${booking.address}`}
-           
-            />
-             <BookingItem
-              label="Billing City"
-              value={`${booking.City}`}
-           
-            />
-             <BookingItem
-              label="Billing State"
-              value={`${booking.State}`}
-           
-            />
-             <BookingItem
-              label="Billing Zipcode"
-              value={`${booking.Zipcode}`}
-           
-            />
-            {
-              booking.companyName &&  <BookingItem
-              label="Company Name"
-              value={`${booking.companyName}`}
-           
-            />
-            }
-            {
-              booking.companyVat &&  <BookingItem
-              label="Company Name"
-              value={`${booking.companyVat}`}
-           
-            />
-            }
+            <BookingItem label="Billing Address" value={`${booking.address}`} />
+            <BookingItem label="Billing City" value={`${booking.City}`} />
+            <BookingItem label="Billing State" value={`${booking.State}`} />
+            <BookingItem label="Billing Zipcode" value={`${booking.Zipcode}`} />
+            {booking.companyName && (
+              <BookingItem
+                label="Company Name"
+                value={`${booking.companyName}`}
+              />
+            )}
+            {booking.companyVat && (
+              <BookingItem
+                label="Company Name"
+                value={`${booking.companyVat}`}
+              />
+            )}
           </div>
         </div>
 
@@ -159,31 +152,76 @@ const page = async ({ params }: Props) => {
           <div>
             <h3 className="capitalize font-semibold">Extra Options</h3>
             <div className="w-full mt-2">
+              {booking.oneWayFee && (
+                <BookingItem
+                
+                  label={"One Way Fee"}
+                  value={formatToDollar(500)}
+                />
+              )}
               {extraOptions.map((option, index) => (
                 <BookingItem
                   key={index}
                   label={option.title}
                   value={formatToDollar(+option.price)}
+                  suffix={option.daily ? `x${totalDays}` : ''}
                 />
+                
               ))}
             </div>
           </div>
         )}
       </div>
       <div className="mt-12 flex flex-col gap-1 w-[100px] items-start">
-        {booking.license && <SuperButton download title="License" variant="link" className="text-black" buttonType="linkButton" target="_blank" href={booking.license} />}
-        {booking.insurance && <SuperButton download variant="link" title="Insurance" className="text-black" buttonType="linkButton" target="_blank" href={booking.insurance} />}
-        {booking.returnFlight && <SuperButton download variant="link" title="Return Flight" className="text-black" buttonType="linkButton" target="_blank" href={booking.returnFlight} />}
+        {booking.license && (
+          <SuperButton
+            download
+            title="License"
+            variant="link"
+            className="text-black"
+            buttonType="linkButton"
+            target="_blank"
+            href={booking.license}
+          />
+        )}
+        {booking.insurance && (
+          <SuperButton
+            download
+            variant="link"
+            title="Insurance"
+            className="text-black"
+            buttonType="linkButton"
+            target="_blank"
+            href={booking.insurance}
+          />
+        )}
+        {booking.returnFlight && (
+          <SuperButton
+            download
+            variant="link"
+            title="Return Flight"
+            className="text-black"
+            buttonType="linkButton"
+            target="_blank"
+            href={booking.returnFlight}
+          />
+        )}
       </div>
 
-      <SuperButton title="Back" buttonType="pushButton" href="/bookings" className="mt-12" Icon={<ChevronLeft className="icon" />}/>
+      <SuperButton
+        title="Back"
+        buttonType="pushButton"
+        href="/bookings"
+        className="mt-12"
+        Icon={<ChevronLeft className="icon" />}
+      />
     </div>
   );
 };
 
 export default page;
 
-const BookingItem = ({ label, value }: { label: string; value: string }) => {
+const BookingItem = ({ label, value ,suffix}: { label: string; value: string,suffix?:string  }) => {
   return (
     <div className="flex flex-col gap-1 mt-3">
       <p className="text-xs capitalize text-[#606060] font-[600] text-[14px]">
@@ -191,6 +229,7 @@ const BookingItem = ({ label, value }: { label: string; value: string }) => {
       </p>
       <p className="border bg-[#F5F6FA] rounded-[4px] px-[17px] py-[12px] font-[400] text-[14px] text-black">
         {value}
+        {suffix && <span>x{totalDays}</span>}
       </p>
     </div>
   );
