@@ -229,7 +229,7 @@ const BookingItem = ({ label, value ,suffix}: { label: string; value: string,suf
       </p>
       <p className="border bg-[#F5F6FA] rounded-[4px] px-[17px] py-[12px] font-[400] text-[14px] text-black">
         {value}
-        {suffix && <span>x{totalDays}</span>}
+        {suffix && <span>x{suffix}</span>}
       </p>
     </div>
   );
