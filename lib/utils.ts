@@ -384,12 +384,12 @@ export function calculateDuration(startDate: Date, endDate: Date) {
   const msInDay = msInHour * 24;
   const msInWeek = msInDay * 7;
 
-  let diff = endDate.getTime() - startDate.getTime();
+  const diff = endDate.getTime() - startDate.getTime();
 
-  let startMonth = startDate.getMonth();
-  let startYear = startDate.getFullYear();
-  let endMonth = endDate.getMonth();
-  let endYear = endDate.getFullYear();
+  const startMonth = startDate.getMonth();
+  const startYear = startDate.getFullYear();
+  const endMonth = endDate.getMonth();
+  const endYear = endDate.getFullYear();
 
   let months = 0;
   let currentDate = new Date(startDate);
