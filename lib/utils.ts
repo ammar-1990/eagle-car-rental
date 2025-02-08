@@ -379,7 +379,6 @@ export function formatPhoneNumber(phone: string) {
   return cleaned.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
 }
 
-
 export function calculateDuration(startDate: Date, endDate: Date) {
   const msInHour = 1000 * 60 * 60;
   const msInDay = msInHour * 24;
@@ -387,42 +386,45 @@ export function calculateDuration(startDate: Date, endDate: Date) {
 
   let diff = endDate.getTime() - startDate.getTime();
 
-  let months = Math.floor(diff / (30 * msInDay));
-  diff -= months * (30 * msInDay); // Subtract months
+  let startMonth = startDate.getMonth();
+  let startYear = startDate.getFullYear();
+  let endMonth = endDate.getMonth();
+  let endYear = endDate.getFullYear();
 
-  let weeks = Math.floor(diff / msInWeek);
-  diff -= weeks * msInWeek; // Subtract weeks
+  let months = 0;
+  let currentDate = new Date(startDate);
 
-  let days = Math.floor(diff / msInDay);
-  diff -= days * msInDay; // Subtract days
+  while (
+    currentDate.getMonth() !== endMonth ||
+    currentDate.getFullYear() !== endYear
+  ) {
+    let nextMonth = new Date(currentDate);
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
 
-  let remainingHours = diff / msInHour; // Remaining hours as decimal
-
-  // If there are extra hours or minutes, round up the days
-  if (remainingHours > 0) {
-    days += 1;
-    remainingHours = 0; // Since we added the hours into days, remaining hours should be 0
+    if (nextMonth <= endDate) {
+      months++;
+      currentDate = nextMonth;
+    } else {
+      break;
+    }
   }
 
-  // If days become a full week, convert to weeks
-  if (days >= 7) {
-    weeks += Math.floor(days / 7);
-    days = days % 7; // Keep remaining days
+  let remainingDays = Math.floor((endDate.getTime() - currentDate.getTime()) / msInDay);
+  let remainingHours = (endDate.getTime() - currentDate.getTime()) / msInHour - remainingDays * 24;
+  const totalDays = Math.floor(diff / msInDay) + (remainingHours > 0 ? 1 : 0)
+  if (remainingHours >= 0.5) {
+    remainingDays += 1; // ✅ Round 24h+30min as an extra day
+    remainingHours = 0;
   }
 
-  // If weeks become a full month (assuming 4 weeks = 1 month), convert to months
-  if (weeks >= 4) {
-    months += Math.floor(weeks / 4);
-    weeks = weeks % 4; // Keep remaining weeks
-  }
-
-  const totalDays = months * 30 + weeks * 7 + days;
+  let weeks = Math.floor(remainingDays / 7);
+  let days = remainingDays % 7;
 
   return {
     months,
     weeks,
     days,
-    hours:remainingHours, // Always 0 after rounding
-    totalDays
+    totalDays,
+    hours: remainingHours, // Always 0 after rounding
   };
 }
