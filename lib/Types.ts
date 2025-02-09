@@ -26,7 +26,7 @@ export const LOCATIONS_MAP: Record<(typeof LOCATIONS_CONST)[number], string> = {
   LOS_ANGELES: "los angeles",
   ORLANDO: "orlando",
 };
-
+export type LocationType = (typeof LOCATIONS_CONST)[number];
 export const BOOKING_STATUS = ["PENDING", "PAID", "CANCELLED"];
 export const BOOKING_STATUS_CONST = ["PENDING", "PAID", "CANCELLED"] as const;
 export const BOOKING_STATUS_MAP: Record<

@@ -14,6 +14,7 @@ import {
   subDays,
 } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
+import { LocationType } from "./Types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -429,3 +430,18 @@ export function calculateDuration(startDate: Date, endDate: Date) {
     hours: remainingHours, // Always 0 after rounding
   };
 }
+
+
+export const getOneWayFee = ({
+  pickupLocation,
+  dropOffLocation,
+}: {
+  pickupLocation: LocationType;
+  dropOffLocation: LocationType | undefined;
+}): { isOneWayFee: boolean; oneWayFeePrice: number } => {
+  const isOneWayFee =
+    !!dropOffLocation && !!(dropOffLocation !== pickupLocation);
+  const oneWayFeePrice = isOneWayFee ? 500 : 0;
+
+  return { isOneWayFee, oneWayFeePrice };
+};

@@ -3,12 +3,13 @@ import { notFound } from "next/navigation";
 import React from "react";
 import Heading from "../../_components/Heading";
 import { format } from "date-fns";
-import { calculateDuration, formatDateUtc, formatPhoneNumber, formatToDollar } from "@/lib/utils";
+import { calculateDuration, formatDateUtc, formatPhoneNumber, formatToDollar, getOneWayFee } from "@/lib/utils";
 import { ExtraOptionsType } from "../../cars/[slug]/schemas";
 import SuperButton from "@/components/SuperButton";
 import { ChevronLeft } from "lucide-react";
 import Badge from "@/components/Badge";
 import ImageComponent from "@/components/ImageComponent";
+import { LocationType } from "@/lib/Types";
 
 type Props = {
   params: Promise<{ bookingID: string }>;
@@ -40,6 +41,8 @@ const page = async ({ params }: Props) => {
   const extraOptions = booking.extraOptions as unknown as ExtraOptionsType[];
 
   const {totalDays} = calculateDuration(booking.startDate, booking.endDate)
+
+  const {oneWayFeePrice} = getOneWayFee({pickupLocation:booking.pickupLocation as LocationType,dropOffLocation:booking.dropoffLocation as LocationType | undefined})
   return (
     <div>
       <Heading title="Booking Details" />
@@ -156,7 +159,7 @@ const page = async ({ params }: Props) => {
                 <BookingItem
                 
                   label={"One Way Fee"}
-                  value={formatToDollar(500)}
+                  value={formatToDollar(oneWayFeePrice)}
                 />
               )}
               {extraOptions.map((option, index) => (
