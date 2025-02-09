@@ -43,6 +43,7 @@ const page = async ({ params }: Props) => {
   const {totalDays} = calculateDuration(booking.startDate, booking.endDate)
 
   const {oneWayFeePrice} = getOneWayFee({pickupLocation:booking.pickupLocation as LocationType,dropOffLocation:booking.dropoffLocation as LocationType | undefined})
+  console.log("IS_ONE_WAY_FEE",booking.oneWayFee)
   return (
     <div>
       <Heading title="Booking Details" />
@@ -151,7 +152,7 @@ const page = async ({ params }: Props) => {
             />
           </div>
         </div>
-        {!!extraOptions.length && (
+        {!!(!!extraOptions.length || !!booking.oneWayFee ) && (
           <div>
             <h3 className="capitalize font-semibold">Extra Options</h3>
             <div className="w-full mt-2">
