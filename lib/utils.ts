@@ -439,9 +439,17 @@ export const getOneWayFee = ({
   pickupLocation: LocationType;
   dropOffLocation: LocationType | undefined;
 }): { isOneWayFee: boolean; oneWayFeePrice: number } => {
-  const isOneWayFee =
-    !!dropOffLocation && !!(dropOffLocation !== pickupLocation);
-  const oneWayFeePrice = isOneWayFee ? 500 : 0;
+  
+  // First, ensure dropOffLocation exists and is different from pickupLocation
+  if (!dropOffLocation || dropOffLocation === pickupLocation) {
+    return { isOneWayFee: false, oneWayFeePrice: 0 };
+  }
 
-  return { isOneWayFee, oneWayFeePrice };
+  // If Orlando is involved (either as pickup or drop-off) → $3500
+  if (pickupLocation === "ORLANDO" || dropOffLocation === "ORLANDO") {
+    return { isOneWayFee: true, oneWayFeePrice: 3500 };
+  }
+
+  // Otherwise, all other routes cost $500
+  return { isOneWayFee: true, oneWayFeePrice: 500 };
 };
