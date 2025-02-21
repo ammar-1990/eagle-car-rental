@@ -10,7 +10,7 @@ type Props = {
 
 const LocalDate = ({date}: Props) => {
   return (
-    <div>{new Date(date).toLocaleString()}</div>
+    <div>{format(date, "MMM, dd yyyy - HH:mm")}</div>
   )
 }
 

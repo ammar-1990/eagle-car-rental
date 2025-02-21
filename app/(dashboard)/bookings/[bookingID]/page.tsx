@@ -82,7 +82,7 @@ const page = async ({ params }: Props) => {
             />
             <BookingItem
               label="Booking Date"
-              value={format(booking.createdAt, "MMM, dd yyyy - HH:mm")}
+              value={booking.createdAt}
             />
             <BookingItem
               label="Start Date"
