@@ -15,7 +15,7 @@ export const disableByLocation = async (cars:DisableCarsByLocation):Promise<{suc
 
                 // Perform batch update in Prisma
     await prisma.$transaction(
-        cars.map(car =>
+        cars?.map(car =>
           prisma.car.update({
             where: { id: car.id },
             data: { disabled: car.disabled }

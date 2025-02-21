@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export type DisableCarsByLocation = { id: string; disabled: boolean ,subTitle:string}[];
 export const useDisableByLocation = (carsByLocation: DisableCarsByLocation) => {
   const [cars, setCars] = useState(carsByLocation);
-  const [all, setAll] = useState(carsByLocation.every(car=>car.disabled))
+  const [all, setAll] = useState(carsByLocation?.every(car=>car.disabled))
  
 
   const setCarsFn = (id: string) => {
@@ -27,13 +27,13 @@ export const useDisableByLocation = (carsByLocation: DisableCarsByLocation) => {
 
   const setAllFn = ()=>{
     console.log(all)
-    const refactoredCars:DisableCarsByLocation = cars.map(car=>({...car,disabled:!all}))
+    const refactoredCars:DisableCarsByLocation = cars?.map(car=>({...car,disabled:!all}))
     setCars(refactoredCars)
     
   }
 
   useEffect(()=>{
-setAll(cars.every(car=>car.disabled))
+setAll(cars?.every(car=>car.disabled))
 
   },[cars])
 

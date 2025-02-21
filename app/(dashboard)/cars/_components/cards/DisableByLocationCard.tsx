@@ -22,7 +22,7 @@ const DisableByLocationCard = ({ carsByLocation, location }: Props) => {
       </div>
 
       <div className="w-full flex flex-col gap-4 ">
-        {cars.map((car) => (
+        {cars?.map((car) => (
           <div key={car.id} className="flex items-center gap-3 justify-between p-2 rounded-md hover:bg-muted cursor-pointer" onClick={() => setCarsFn(car.id)}>
             <Label className="select-none cursor-pointer">{car.subTitle}</Label>
             <Checkbox
