@@ -1,4 +1,4 @@
-'use client'
+
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -11,6 +11,7 @@ import { ChevronLeft } from "lucide-react";
 import Badge from "@/components/Badge";
 import ImageComponent from "@/components/ImageComponent";
 import { LocationType } from "@/lib/Types";
+import LocalDate from "../../_components/LocalDate";
 
 type Props = {
   params: Promise<{ bookingID: string }>;
@@ -226,14 +227,16 @@ const page = async ({ params }: Props) => {
 
 export default page;
 
-const BookingItem = ({ label, value ,suffix}: { label: string; value: string,suffix?:string  }) => {
+const BookingItem = ({ label, value ,suffix}: { label: string; value: string | Date,suffix?:string  }) => {
+  const isDate = value instanceof Date
+  const Value = isDate ? <LocalDate date={value} /> : value
   return (
     <div className="flex flex-col gap-1 mt-3">
       <p className="text-xs capitalize text-[#606060] font-[600] text-[14px]">
         {label}
       </p>
       <p className="border bg-[#F5F6FA] rounded-[4px] px-[17px] py-[12px] font-[400] text-[14px] text-black">
-        {value}
+        {Value}
         {suffix && <span>{suffix}</span>}
       </p>
     </div>
