@@ -7,6 +7,8 @@ import SettingsForm from './_components/forms/SettingsForm'
 
 type Props = {}
 
+
+export const revalidate = 0
 const SettingsPage =async (props: Props) => {
 
     const settings = await prisma.settings.findUnique({
