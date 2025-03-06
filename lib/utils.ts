@@ -376,9 +376,22 @@ export function formatPhoneNumber(phone: string) {
   // Remove any non-numeric characters
   const cleaned = phone.replace(/[^0-9]/g, "");
 
-  // Format the number into (xxx) xxx-xxxx
-  return cleaned.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
-}
+  if (cleaned.length < 11) {
+    // Handle too short numbers (invalid case)
+    return phone;
+  }
+
+  // Extract the country code (first digit)
+  const countryCode = cleaned[0]; // First digit as country code
+
+  // Extract the rest of the number
+  const restOfNumber = cleaned.slice(1); // Everything after the first digit
+
+  // Format the rest into (xxx) xxx-xxxx
+  const formatted = restOfNumber.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+
+  // Combine country code with the formatted number
+  return `+${countryCode} ${formatted}`;}
 
 
 export function calculateDuration(startDate: Date, endDate: Date) {

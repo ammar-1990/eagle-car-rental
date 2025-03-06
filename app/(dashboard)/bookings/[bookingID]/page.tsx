@@ -10,7 +10,7 @@ import SuperButton from "@/components/SuperButton";
 import { ChevronLeft } from "lucide-react";
 import Badge from "@/components/Badge";
 import ImageComponent from "@/components/ImageComponent";
-import { LocationType } from "@/lib/Types";
+import { LOCATIONS_MAP, LocationType } from "@/lib/Types";
 import LocalDate from "../../_components/LocalDate";
 
 type Props = {
@@ -79,6 +79,14 @@ const page = async ({ params }: Props) => {
             <BookingItem
               label="Car Name"
               value={`${booking.car.carType.title} (${booking.car.subTitle})`}
+            />
+                <BookingItem
+              label="Pick up Location"
+              value={LOCATIONS_MAP[booking.pickupLocation as LocationType]}
+            />
+                <BookingItem
+              label="Drop off Location"
+              value={LOCATIONS_MAP[(booking.dropoffLocation ?? booking.pickupLocation) as LocationType]}
             />
             <BookingItem
               label="Booking Date"
