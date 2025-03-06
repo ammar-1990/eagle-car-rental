@@ -153,13 +153,18 @@ const page = async ({ params }: Props) => {
           <div className="w-full mt-2">
             <BookingItem label="Payment Method" value={booking.paymentMethod} />
             <BookingItem
-              label="Total Amount"
-              value={formatToDollar(booking.totalAmount)}
+              label="Rental Price"
+              value={formatToDollar(booking.price)}
             />
             <BookingItem
               label="Pay Now"
               value={formatToDollar(booking.payNow)}
             />
+            <BookingItem
+              label="Total Amount"
+              value={formatToDollar(booking.totalAmount)}
+            />
+      
           </div>
         </div>
         {!!(!!extraOptions.length || !!booking.oneWayFee ) && (
