@@ -7,7 +7,7 @@ type Props = {src:string,alt:string,className?:string,imgClassName?:string,aspec
 const ImageComponent = ({alt,aspect,src,className,imgClassName}: Props) => {
   return (
     <div className={cn('relative ',aspect==="square" ? "aspect-square" : "aspect-video",className)}>
-        <Image  src={src} alt='alt' className={cn('object-cover',imgClassName)} fill />
+        <Image  src={src} alt='alt' className={cn('object-cover',imgClassName)} fill unoptimized/>
     </div>
   )
 }
